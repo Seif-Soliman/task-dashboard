@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  padding: 1.5rem;
+}
+.stats {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+.skeleton {
+  height: 120px;
+  border-radius: 12px;
+  background: #e8eaed;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.error {
+  grid-column: 1 / -1;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}

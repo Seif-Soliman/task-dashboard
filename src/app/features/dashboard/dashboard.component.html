@@ -1,0 +1,16 @@
+<section class="stats" aria-label="Task statistics">
+  @if (statistics.isLoading()) {
+    @for (n of skeletons; track n) {
+      <div class="skeleton" aria-hidden="true"></div>
+    }
+  } @else if (statistics.error()) {
+    <div class="error" role="alert">
+      <p>Couldn't load statistics.</p>
+      <button mat-stroked-button (click)="statistics.reload()">Retry</button>
+    </div>
+  } @else {
+    @for (stat of statistics.value() ?? []; track stat.id) {
+      <app-stat-card [stat]="stat" />
+    }
+  }
+</section>
