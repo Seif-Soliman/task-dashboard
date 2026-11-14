@@ -3,18 +3,18 @@ import { StatisticsService } from './stat-card/statistics.service';
 import { StatCard } from './stat-card/stat-card.component';
 import { BoardColumnComponent } from './board-column/board-column.component';
 import { sortByOrder } from '../../core/utils/task.utils';
-import { TasksService } from './task-card/tasks.service';
+import { TasksService } from '../task/tasks.service';
 import { FilterBarComponent } from '../filter-bar/filter-bar.component';
 import { TaskFiltersService } from '../task-filter/task-filters.service';
 import { filterTasks } from '../task-filter/model/task-filters';
 import { UsersService } from './users.service';
 import { STATUS_LABELS, TASK_STATUSES } from '../task-filter/model/task-options';
 import { TaskFormDialogService } from '../task/task-form-dialog/task-form-dialog.service';
-import { TaskDeleteService } from '../task/task-delete.service';
+import { TaskDeleteService } from '../task/task-delete/task-delete.service';
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { TaskDrop } from './board-column/model/board-column.model';
-import { TaskMoveService } from '../task/task-move.service';
+import { TaskMoveService } from '../task/task-move/task-move.service';
 import { ErrorStateComponent } from '../shared/error-state/error-state.component';
 
 @Component({

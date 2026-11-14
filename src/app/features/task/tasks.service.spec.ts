@@ -3,8 +3,8 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { ApplicationRef, provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { TasksService } from './tasks.service';
-import { TaskDraft } from '../../../core/models/task.model';
-import { makeTask } from '../../../core/utils/task.utils.spec';
+import { TaskDraft } from '../../core/models/task.model';
+import { makeTask } from '../../core/utils/task.utils.spec';
 
 describe('TasksService', () => {
   const existing = makeTask({ id: 't1', order: 1000 });

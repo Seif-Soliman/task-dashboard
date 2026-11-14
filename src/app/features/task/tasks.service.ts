@@ -1,9 +1,13 @@
 import { HttpClient, HttpErrorResponse, httpResource } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Task, TaskDraft, TaskStatus } from '../../../core/models/task.model';
+import { Task, TaskDraft, TaskStatus } from '../../core/models/task.model';
 import { catchError, defer, map, Observable, of, tap, throwError } from 'rxjs';
-import { buildMovedTask, buildNewTask, buildUpdatedTask } from '../task-builder/task-builders';
-import { orderBetween } from '../../task/task-order';
+import {
+  buildMovedTask,
+  buildNewTask,
+  buildUpdatedTask,
+} from '../dashboard/task-builder/task-builders';
+import { orderBetween } from './task-order/task-order';
 
 @Injectable({ providedIn: 'root' })
 export class TasksService {

@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TaskDeleteService } from './task-delete.service';
 import { of, throwError } from 'rxjs';
-import { makeTask } from '../../core/utils/task.utils.spec';
-import { TasksService } from '../dashboard/task-card/tasks.service';
-import { ConfirmService } from '../shared/confirm-dialog/confirm.service';
+import { makeTask } from '../../../core/utils/task.utils.spec';
+import { TasksService } from '../tasks.service';
+import { ConfirmService } from '../../shared/confirm-dialog/confirm.service';
 import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('TaskDeleteService', () => {

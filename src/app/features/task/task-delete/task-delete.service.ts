@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { firstValueFrom } from 'rxjs';
-import { Task } from '../../core/models/task.model';
-import { TasksService } from '../dashboard/task-card/tasks.service';
-import { ConfirmService } from '../shared/confirm-dialog/confirm.service';
+import { Task } from '../../../core/models/task.model';
+import { TasksService } from '../tasks.service';
+import { ConfirmService } from '../../shared/confirm-dialog/confirm.service';
 
 @Injectable({ providedIn: 'root' })
 export class TaskDeleteService {

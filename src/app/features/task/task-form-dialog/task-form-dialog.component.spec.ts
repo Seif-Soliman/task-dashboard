@@ -3,7 +3,7 @@ import { TaskFormDialogComponent } from './task-form-dialog.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { of, throwError } from 'rxjs';
 import { makeTask } from '../../../core/utils/task.utils.spec';
-import { TasksService } from '../../dashboard/task-card/tasks.service';
+import { TasksService } from '../tasks.service';
 import { UsersService } from '../../dashboard/users.service';
 import { provideZonelessChangeDetection } from '@angular/core';
 
