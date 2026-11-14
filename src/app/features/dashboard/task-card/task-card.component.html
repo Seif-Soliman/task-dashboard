@@ -1,0 +1,35 @@
+<article class="card" [class.overdue]="due().kind === 'overdue'">
+  <header class="top">
+    <span [class]="'priority ' + task().priority">{{ task().priority }}</span>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      [attr.aria-label]="'Actions for ' + task().title"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="edit.emit(task())">Edit</button>
+      <button mat-menu-item (click)="remove.emit(task())">Delete</button>
+    </mat-menu>
+  </header>
+
+  <h3>{{ task().title }}</h3>
+  <p class="description">{{ task().description }}</p>
+
+  <p [class]="'due ' + due().kind">
+    <mat-icon aria-hidden="true">{{ dueIcon() }}</mat-icon>
+    {{ dueLabel() }}
+  </p>
+
+  <ul class="tags">
+    @for (tag of task().tags; track tag) {
+      <li>{{ tag }}</li>
+    }
+  </ul>
+
+  <footer>
+    <span class="avatar" aria-hidden="true">{{ task().assignee.avatar }}</span>
+    <span>&#64;{{ firstName() }}</span>
+  </footer>
+</article>
