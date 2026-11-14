@@ -5,7 +5,9 @@
   </header>
   <ul class="cards">
     @for (task of tasks(); track task.id) {
-      <li><app-task-card [task]="task" (edit)="edit.emit($event)" /></li>
+      <li>
+        <app-task-card [task]="task" (edit)="edit.emit($event)" (remove)="remove.emit($event)" />
+      </li>
     } @empty {
       <li class="empty">No tasks</li>
     }

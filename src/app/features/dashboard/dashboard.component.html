@@ -39,6 +39,7 @@
         [status]="column.status"
         [title]="column.title"
         [tasks]="column.tasks"
+        (remove)="taskDelete.delete($event)"
         (edit)="taskDialog.edit($event)"
       />
     }
