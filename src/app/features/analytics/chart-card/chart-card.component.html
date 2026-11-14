@@ -1,0 +1,13 @@
+<section class="card" [attr.aria-labelledby]="headingId">
+  <h2 [id]="headingId">{{ title() }}</h2>
+  <app-chart [config]="config()" [ariaLabel]="summary()" />
+  <ul class="legend">
+    @for (slice of slices(); track slice.label) {
+      <li>
+        <span class="swatch" [style.background-color]="slice.color" aria-hidden="true"></span>
+        <span>{{ slice.label }}</span>
+        <strong>{{ slice.value }}</strong>
+      </li>
+    }
+  </ul>
+</section>

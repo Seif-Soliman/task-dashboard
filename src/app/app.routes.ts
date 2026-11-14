@@ -16,7 +16,7 @@ export const routes: Routes = [
         path: 'analytics',
         title: 'Analytics',
         loadComponent: () =>
-          import('./features/analytics/analytics.component').then((m) => m.Analytics),
+          import('./features/analytics/analytics.component').then((m) => m.AnalyticsComponent),
       },
     ],
   },
