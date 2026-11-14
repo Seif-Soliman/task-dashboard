@@ -8,17 +8,24 @@ import {
   buildUpdatedTask,
 } from '../dashboard/task-builder/task-builders';
 import { orderBetween } from './task-order/task-order';
+import { ActivityRecorder } from './task-activity/activity-recorder.service';
 
 @Injectable({ providedIn: 'root' })
 export class TasksService {
   private readonly http = inject(HttpClient);
+  private readonly activity = inject(ActivityRecorder);
 
   readonly tasks = httpResource<Task[]>(() => '/api/tasks');
 
   create(draft: TaskDraft): Observable<Task> {
     return this.http
       .post<Task>('/api/tasks', buildNewTask(draft, this.nextOrder(draft.status)))
-      .pipe(tap((created) => this.patchLocal((list) => [...list, created])));
+      .pipe(
+        tap((created) => {
+          this.patchLocal((list) => [...list, created]);
+          this.activity.created(created);
+        }),
+      );
   }
 
   update(existing: Task, draft: TaskDraft): Observable<Task> {
@@ -27,7 +34,10 @@ export class TasksService {
     return this.http
       .put<Task>(`/api/tasks/${existing.id}`, buildUpdatedTask(existing, draft, order))
       .pipe(
-        tap((saved) => this.patchLocal((list) => list.map((t) => (t.id === saved.id ? saved : t)))),
+        tap((saved) => {
+          this.patchLocal((list) => list.map((t) => (t.id === saved.id ? saved : t)));
+          this.activity.changed(existing, saved);
+        }),
       );
   }
 
@@ -64,6 +74,7 @@ export class TasksService {
       this.patchLocal((list) => list.filter((t) => t.id !== task.id));
 
       return this.http.delete(`/api/tasks/${task.id}`).pipe(
+        tap(() => this.activity.deleted(task)),
         map(() => undefined),
         catchError((error: unknown) => {
           if (error instanceof HttpErrorResponse && error.status === 404) return of(undefined);
@@ -84,6 +95,9 @@ export class TasksService {
       this.patchLocal((list) => list.map((t) => (t.id === task.id ? moved : t)));
 
       return this.http.put(`/api/tasks/${task.id}`, moved).pipe(
+        tap(() => {
+          if (task.status !== status) this.activity.changed(task, moved);
+        }),
         map(() => undefined),
         catchError((error: unknown) => {
           // Only revert our own change; leave it if something newer replaced it meanwhile.

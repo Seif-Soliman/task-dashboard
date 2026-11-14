@@ -4,6 +4,7 @@
 
 <app-header
   [search]="search()"
+  [user]="user()"
   [showMenuButton]="isCompact()"
   (searchChange)="onSearch($event)"
   (menuToggle)="menuOpen.set(!menuOpen())"

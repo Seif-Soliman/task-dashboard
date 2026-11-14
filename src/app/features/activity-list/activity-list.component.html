@@ -1,0 +1,20 @@
+<ol class="feed">
+  @for (row of rows(); track row.id) {
+    <li>
+      <span class="avatar" aria-hidden="true">{{ row.user.avatar }}</span>
+      <div>
+        <p>
+          <strong>{{ row.user.name }}</strong> {{ row.verb }} <strong>{{ row.taskTitle }}</strong>
+          @if (row.target) {
+            to {{ row.target }}
+          }
+        </p>
+        <time [attr.datetime]="row.createdAt" [title]="row.createdAt | date: 'medium'">{{
+          row.when
+        }}</time>
+      </div>
+    </li>
+  } @empty {
+    <li class="empty">No activity yet.</li>
+  }
+</ol>
