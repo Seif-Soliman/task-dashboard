@@ -7,11 +7,23 @@
   gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
+.board {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  align-items: start;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(280px, 1fr);
+  overflow-x: auto;
+}
 .skeleton {
   height: 120px;
   border-radius: 12px;
   background: #e8eaed;
   animation: pulse 1.2s ease-in-out infinite;
+}
+.board-skeleton {
+  height: 420px;
 }
 .error {
   grid-column: 1 / -1;

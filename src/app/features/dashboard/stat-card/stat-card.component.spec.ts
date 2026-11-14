@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { StatCard } from './stat-card.component';
-import { Statistic } from '../../../../core/models/statistic.model';
+import { Statistic } from '../../../core/models/statistic.model';
 
 describe('StatCardComponent', () => {
   const stat: Statistic = {

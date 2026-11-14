@@ -1,6 +1,6 @@
 import { httpResource } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Statistic } from '../../core/models/statistic.model';
+import { Statistic } from '../../../core/models/statistic.model';
 
 @Injectable({ providedIn: 'root' })
 export class StatisticsService {
