@@ -3,7 +3,7 @@ import { formatDueInfo, getDueInfo, sortTasks } from './task.utils';
 
 const now = new Date(2026, 10, 13, 12);
 
-const makeTask = (overrides: Partial<Task> = {}): Task => ({
+export const makeTask = (overrides: Partial<Task> = {}): Task => ({
   id: 't1',
   title: 'Task',
   description: 'Description',
