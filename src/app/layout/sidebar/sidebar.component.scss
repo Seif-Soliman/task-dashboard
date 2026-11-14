@@ -1,0 +1,45 @@
+:host {
+  display: block;
+  height: 100%;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 6px;
+  color: #202124;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+a:hover {
+  background: #eef3fb;
+}
+a.active {
+  background: #1976d2;
+  color: #fff;
+}
+a mat-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}
+.new-task {
+  margin-top: auto;
+}

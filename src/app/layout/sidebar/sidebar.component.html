@@ -1,0 +1,22 @@
+<div class="sidebar">
+  <nav aria-label="Main">
+    <ul>
+      @for (item of items; track item.path) {
+        <li>
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="active"
+            ariaCurrentWhenActive="page"
+            (click)="navigated.emit()"
+          >
+            <mat-icon aria-hidden="true">{{ item.icon }}</mat-icon>
+            {{ item.label }}
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+  <button mat-flat-button type="button" class="new-task" (click)="newTask.emit()">
+    + New Task
+  </button>
+</div>
