@@ -2,9 +2,9 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, throwError } from 'rxjs';
-import { makeTask } from '../../core/utils/task.utils.spec';
+import { makeTask } from '../../../core/utils/task.utils.spec';
 import { provideZonelessChangeDetection } from '@angular/core';
-import { TasksService } from '../dashboard/task-card/tasks.service';
+import { TasksService } from '../tasks.service';
 import { TaskMoveService } from './task-move.service';
 
 describe('TaskMoveService', () => {

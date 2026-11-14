@@ -23,7 +23,7 @@ import { finalize } from 'rxjs';
 import { Task, TaskPriority, TaskStatus } from '../../../core/models/task.model';
 import { parseDateOnly } from '../../../core/utils/task.utils';
 import { toFormValue, toTaskDraft } from '../../dashboard/task-builder/task-form.mapper';
-import { TasksService } from '../../dashboard/task-card/tasks.service';
+import { TasksService } from '../tasks.service';
 import { UsersService } from '../../dashboard/users.service';
 import { getErrorMessage } from '../../shared/forms/form-errors';
 import { notBlank, notBeforeToday, maxItems, uniqueValues } from '../../shared/forms/validators';

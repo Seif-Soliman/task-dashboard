@@ -2,9 +2,9 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, firstValueFrom } from 'rxjs';
-import { Task, TaskStatus } from '../../core/models/task.model';
-import { TasksService } from '../dashboard/task-card/tasks.service';
-import { STATUS_LABELS } from '../task-filter/model/task-options';
+import { Task, TaskStatus } from '../../../core/models/task.model';
+import { TasksService } from '../tasks.service';
+import { STATUS_LABELS } from '../../task-filter/model/task-options';
 
 @Injectable({ providedIn: 'root' })
 export class TaskMoveService {

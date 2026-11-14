@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  padding: 1.5rem;
+}
+h1 {
+  margin: 0 0 1.5rem;
+  font-size: 1.5rem;
+}
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+.skeleton {
+  height: 420px;
+  border-radius: 12px;
+  background: #e8eaed;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.empty {
+  color: #5f6368;
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}

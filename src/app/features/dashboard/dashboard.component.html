@@ -4,10 +4,11 @@
       <div class="skeleton" aria-hidden="true"></div>
     }
   } @else if (statistics.error()) {
-    <div class="error" role="alert">
-      <p>Couldn't load statistics.</p>
-      <button mat-stroked-button (click)="statistics.reload()">Retry</button>
-    </div>
+    <app-error-state
+      class="error"
+      message="Couldn't load statistics."
+      (retry)="statistics.reload()"
+    />
   } @else {
     @for (stat of statistics.value() ?? []; track stat.id) {
       <app-stat-card [stat]="stat" />
@@ -29,10 +30,11 @@
       <div class="skeleton board-skeleton" aria-hidden="true"></div>
     }
   } @else if (tasksResource.error()) {
-    <div class="error" role="alert">
-      <p>Couldn't load tasks.</p>
-      <button mat-stroked-button (click)="tasksResource.reload()">Retry</button>
-    </div>
+    <app-error-state
+      class="error"
+      message="Couldn't load tasks."
+      (retry)="tasksResource.reload()"
+    />
   } @else {
     @for (column of columns(); track column.status) {
       <app-board-column

@@ -2,12 +2,12 @@ import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { makeTask } from '../../core/utils/task.utils.spec';
 import { StatisticsService } from './stat-card/statistics.service';
-import { TasksService } from './task-card/tasks.service';
+import { TasksService } from '../task/tasks.service';
 import { Dashboard } from './dashboard.component';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { By } from '@angular/platform-browser';
-import { TaskDeleteService } from '../task/task-delete.service';
+import { TaskDeleteService } from '../task/task-delete/task-delete.service';
 import { BoardColumnComponent } from './board-column/board-column.component';
 import { UsersService } from './users.service';
 
