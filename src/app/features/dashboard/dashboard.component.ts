@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { StatisticsService } from './stat-card/statistics.service';
 import { StatCard } from './stat-card/stat-card.component';
-import { MatButtonModule } from '@angular/material/button';
 import { BoardColumnComponent } from './board-column/board-column.component';
 import { sortByOrder } from '../../core/utils/task.utils';
 import { TasksService } from './task-card/tasks.service';
@@ -16,17 +15,18 @@ import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { TaskDrop } from './board-column/model/board-column.model';
 import { TaskMoveService } from '../task/task-move.service';
+import { ErrorStateComponent } from '../shared/error-state/error-state.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
     StatCard,
-    MatButtonModule,
     BoardColumnComponent,
     FilterBarComponent,
     CdkDropListGroup,
     CdkScrollable,
+    ErrorStateComponent,
   ],
   providers: [TaskFiltersService],
   changeDetection: ChangeDetectionStrategy.OnPush,
