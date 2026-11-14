@@ -6,7 +6,7 @@ import {
   parsePriority,
   parseStatus,
   toQueryParams,
-} from './task-filters';
+} from './model/task-filters';
 
 describe('task filters', () => {
   const tasks = [

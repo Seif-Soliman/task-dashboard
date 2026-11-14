@@ -1,22 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { provideRouter, Router } from '@angular/router';
+import { HeaderComponent } from '../header/header.component';
 import { ShellComponent } from './shell.component';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('ShellComponent', () => {
-  let component: ShellComponent;
-  let fixture: ComponentFixture<ShellComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ShellComponent],
+      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(ShellComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('sends the header search to the dashboard url', async () => {
+    TestBed.configureTestingModule({
+      providers: [provideRouter([{ path: 'dashboard', children: [] }])],
+    });
+    const fixture = TestBed.createComponent(ShellComponent);
+    fixture.detectChanges();
+
+    const header = fixture.debugElement.query(By.directive(HeaderComponent))
+      .componentInstance as HeaderComponent;
+    header.searchChange.emit('pay');
+    await fixture.whenStable();
+
+    expect(TestBed.inject(Router).url).toBe('/dashboard?q=pay');
   });
 });

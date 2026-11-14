@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { TaskFiltersService } from './task-filters.service';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('TaskFiltersService', () => {
   let service: TaskFiltersService;
   let router: Router;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ providers: [provideRouter([]), TaskFiltersService] });
+    TestBed.configureTestingModule({
+      providers: [provideRouter([]), TaskFiltersService, provideZonelessChangeDetection()],
+    });
     service = TestBed.inject(TaskFiltersService);
     router = TestBed.inject(Router);
   });

@@ -4,6 +4,8 @@ import { makeTask } from '../../core/utils/task.utils.spec';
 import { StatisticsService } from './stat-card/statistics.service';
 import { TasksService } from './task-card/tasks.service';
 import { Dashboard } from './dashboard.component';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
 
 const resourceStub = <T>(value: T) => ({
   value: signal(value),
@@ -17,7 +19,7 @@ describe('DashboardPage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Dashboard],
-      providers: [provideZonelessChangeDetection()],
+      providers: [provideRouter([]), provideHttpClient(), provideZonelessChangeDetection()],
     }).compileComponents();
   });
 

@@ -7,7 +7,7 @@ import {
   parseStatus,
   TaskFilters,
   toQueryParams,
-} from './task-filters';
+} from './model/task-filters';
 
 /** Provided per page (not root) so it reads that page's route. The URL is the single source of truth. */
 @Injectable()

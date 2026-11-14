@@ -6,13 +6,13 @@ import {
   hasActiveFilters,
   StatusFilter,
   PriorityFilter,
-} from '../dashboard/task-filters';
+} from '../task-filter/model/task-filters';
 import {
   TASK_STATUSES,
   STATUS_LABELS,
   TASK_PRIORITIES,
   PRIORITY_LABELS,
-} from '../dashboard/task-options';
+} from '../task-filter/model/task-options';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,6 +24,7 @@ import { FilterMenuComponent } from '../filter-menu/filter-menu.component';
 
 @Component({
   selector: 'app-filter-bar',
+  standalone: true,
   imports: [
     ReactiveFormsModule,
     MatButtonModule,

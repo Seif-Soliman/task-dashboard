@@ -1,9 +1,7 @@
-<mat-card appearance="outlined">
-  <mat-card-content>
-    <p class="title">
-      <span aria-hidden="true">{{ stat().icon }}</span> {{ stat().title }}
-    </p>
-    <p class="value">{{ stat().value }}</p>
-    <p [class]="'change ' + stat().changeType">{{ stat().change }} {{ stat().changeLabel }}</p>
-  </mat-card-content>
-</mat-card>
+<article class="card">
+  <p class="title">
+    <span aria-hidden="true">{{ stat().icon }}</span> {{ stat().title }}
+  </p>
+  <p class="value">{{ stat().value }}</p>
+  <p [class]="'change ' + stat().changeType">{{ stat().change }} {{ stat().changeLabel }}</p>
+</article>
