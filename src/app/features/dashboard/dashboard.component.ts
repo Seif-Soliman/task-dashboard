@@ -6,10 +6,10 @@ import { BoardColumnComponent } from './board-column/board-column.component';
 import { sortTasks } from '../../core/utils/task.utils';
 import { TasksService } from './task-card/tasks.service';
 import { FilterBarComponent } from '../filter-bar/filter-bar.component';
-import { TaskFiltersService } from './task-filters.service';
-import { filterTasks } from './task-filters';
+import { TaskFiltersService } from '../task-filter/task-filters.service';
+import { filterTasks } from '../task-filter/model/task-filters';
 import { UsersService } from './users.service';
-import { STATUS_LABELS, TASK_STATUSES } from './task-options';
+import { STATUS_LABELS, TASK_STATUSES } from '../task-filter/model/task-options';
 
 @Component({
   selector: 'app-dashboard',

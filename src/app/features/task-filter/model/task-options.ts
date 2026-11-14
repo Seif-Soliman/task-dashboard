@@ -1,4 +1,4 @@
-import { TaskStatus, TaskPriority } from '../../core/models/task.model';
+import { TaskStatus, TaskPriority } from '../../../core/models/task.model';
 
 export const TASK_STATUSES: readonly TaskStatus[] = ['todo', 'in_progress', 'done'];
 export const TASK_PRIORITIES: readonly TaskPriority[] = ['high', 'medium', 'low'];

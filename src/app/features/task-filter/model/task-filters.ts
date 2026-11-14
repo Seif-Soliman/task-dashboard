@@ -1,5 +1,5 @@
 import { Params } from '@angular/router';
-import { TaskStatus, Task, TaskPriority } from '../../core/models/task.model';
+import { TaskStatus, Task, TaskPriority } from '../../../core/models/task.model';
 import { TASK_STATUSES, TASK_PRIORITIES } from './task-options';
 
 export type StatusFilter = TaskStatus | 'all';

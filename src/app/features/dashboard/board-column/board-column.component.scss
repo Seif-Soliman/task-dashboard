@@ -9,11 +9,14 @@
   padding: 1rem;
   background: #fff;
   border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(16, 24, 40, 0.08);
 }
 header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #eceff1;
 }
 h2 {
   margin: 0;

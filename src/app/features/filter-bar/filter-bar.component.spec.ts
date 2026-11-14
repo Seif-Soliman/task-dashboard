@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { FilterBarComponent } from './filter-bar.component';
-import { TaskFilters, DEFAULT_FILTERS } from '../dashboard/task-filters';
+import { TaskFilters, DEFAULT_FILTERS } from '../task-filter/model/task-filters';
 
 describe('FilterBarComponent', () => {
   const emitted: Partial<TaskFilters>[] = [];
