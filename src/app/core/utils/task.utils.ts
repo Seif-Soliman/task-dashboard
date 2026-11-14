@@ -1,4 +1,4 @@
-import { Task, TaskPriority } from '../models/task.model';
+import { Task } from '../models/task.model';
 
 export type DueInfo =
   | { kind: 'overdue'; days: number }
@@ -6,9 +6,7 @@ export type DueInfo =
   | { kind: 'completed'; days: number };
 
 const MS_PER_DAY = 86_400_000;
-const PRIORITY_RANK: Record<TaskPriority, number> = { high: 0, medium: 1, low: 2 };
 
-/** Parses 'YYYY-MM-DD' as a local date (new Date('YYYY-MM-DD') would be UTC and can shift the day). */
 export function parseDateOnly(value: string): Date {
   const [year, month, day] = value.split('-').map(Number);
   return new Date(year, month - 1, day);
@@ -41,14 +39,8 @@ export function isOverdue(task: Task, now = new Date()): boolean {
   return getDueInfo(task, now).kind === 'overdue';
 }
 
-/** Overdue first, then high to low priority, then earliest due date. */
-export function sortTasks(tasks: readonly Task[], now = new Date()): Task[] {
-  return [...tasks].sort(
-    (a, b) =>
-      Number(isOverdue(b, now)) - Number(isOverdue(a, now)) ||
-      PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority] ||
-      a.dueDate.localeCompare(b.dueDate),
-  );
+export function sortByOrder(tasks: readonly Task[]): Task[] {
+  return [...tasks].sort((a, b) => a.order - b.order);
 }
 
 const plural = (count: number, unit: string) => `${count} ${unit}${count === 1 ? '' : 's'}`;

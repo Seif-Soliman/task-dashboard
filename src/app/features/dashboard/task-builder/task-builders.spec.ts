@@ -1,6 +1,6 @@
 import { TaskDraft } from '../../../core/models/task.model';
 import { makeTask } from '../../../core/utils/task.utils.spec';
-import { buildNewTask, buildUpdatedTask } from './task-builders';
+import { buildNewTask, buildUpdatedTask, buildMovedTask } from './task-builders';
 
 const now = new Date('2026-11-14T10:00:00.000Z');
 const iso = now.toISOString();
@@ -21,18 +21,18 @@ function draftOf(overrides: Partial<TaskDraft> = {}): TaskDraft {
 
 describe('task builders', () => {
   it('stamps new tasks with timestamps', () => {
-    const task = buildNewTask(draftOf(), now);
+    const task = buildNewTask(draftOf(), 3000, now);
     expect(task).toMatchObject({ createdAt: iso, updatedAt: iso });
     expect(task.completedAt).toBeUndefined();
   });
 
   it('sets completedAt for tasks created as done', () => {
-    expect(buildNewTask(draftOf({ status: 'done' }), now).completedAt).toBe(iso);
+    expect(buildNewTask(draftOf({ status: 'done' }), 1000, now).completedAt).toBe(iso);
   });
 
   it('keeps identity and creation time on update and drops the stale isOverdue flag', () => {
     const existing = makeTask({ id: 'x', isOverdue: true, createdAt: '2026-01-01T00:00:00.000Z' });
-    const updated = buildUpdatedTask(existing, draftOf({ title: 'Renamed' }), now);
+    const updated = buildUpdatedTask(existing, draftOf({ title: 'Renamed' }), 1000, now);
     expect(updated).toMatchObject({
       id: 'x',
       title: 'Renamed',
@@ -44,15 +44,20 @@ describe('task builders', () => {
 
   it('keeps the original completedAt while the task stays done', () => {
     const existing = makeTask({ status: 'done', completedAt: '2026-11-01T00:00:00.000Z' });
-    expect(buildUpdatedTask(existing, draftOf({ status: 'done' }), now).completedAt).toBe(
+    expect(buildUpdatedTask(existing, draftOf({ status: 'done' }), 1000, now).completedAt).toBe(
       '2026-11-01T00:00:00.000Z',
     );
   });
 
   it('clears completedAt when a done task is reopened', () => {
     const existing = makeTask({ status: 'done', completedAt: '2026-11-01T00:00:00.000Z' });
-    expect('completedAt' in buildUpdatedTask(existing, draftOf({ status: 'todo' }), now)).toBe(
-      false,
-    );
+    expect(
+      'completedAt' in buildUpdatedTask(existing, draftOf({ status: 'todo' }), 1000, now),
+    ).toBe(false);
+  });
+
+  it('moves a task to another column with a new rank', () => {
+    const moved = buildMovedTask(makeTask({ status: 'todo', order: 1000 }), 'done', 500, now);
+    expect(moved).toMatchObject({ status: 'done', order: 500, completedAt: iso, updatedAt: iso });
   });
 });

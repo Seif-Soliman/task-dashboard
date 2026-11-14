@@ -10,6 +10,11 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="edit.emit(task())">Edit</button>
+      @for (target of moveTargets(); track target.status) {
+        <button mat-menu-item (click)="moveTo.emit(target.status)">
+          Move to {{ target.label }}
+        </button>
+      }
       <button mat-menu-item (click)="remove.emit(task())">Delete</button>
     </mat-menu>
   </header>

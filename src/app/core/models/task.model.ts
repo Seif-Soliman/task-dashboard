@@ -21,6 +21,7 @@ export interface Task {
   tags: string[];
   createdAt: string;
   updatedAt: string;
+  order: number;
 }
 
 export type TaskDraft = Pick<
