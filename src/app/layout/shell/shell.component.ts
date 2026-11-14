@@ -6,6 +6,7 @@ import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
 import { map } from 'rxjs';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { TaskFormDialogService } from '../../features/task/task-form-dialog/task-form-dialog.service';
 
 const COMPACT_QUERY = '(max-width: 959.98px)';
 
@@ -20,6 +21,12 @@ export class ShellComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly breakpoints = inject(BreakpointObserver);
+  private readonly taskDialog = inject(TaskFormDialogService);
+
+  protected onNewTask(): void {
+    this.menuOpen.set(false);
+    void this.taskDialog.create();
+  }
 
   protected readonly menuOpen = signal(false);
 

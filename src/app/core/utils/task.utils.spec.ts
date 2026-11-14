@@ -1,5 +1,5 @@
 import { Task } from '../models/task.model';
-import { formatDueInfo, getDueInfo, sortTasks } from './task.utils';
+import { formatDateOnly, formatDueInfo, getDueInfo, parseDateOnly, sortTasks } from './task.utils';
 
 const now = new Date(2026, 10, 13, 12);
 
@@ -57,5 +57,9 @@ describe('task utils', () => {
       now,
     );
     expect(sorted.map((t) => t.id)).toEqual(['overdue', 'high', 'low']);
+  });
+
+  it('round-trips date-only strings', () => {
+    expect(formatDateOnly(parseDateOnly('2026-11-05'))).toBe('2026-11-05');
   });
 });

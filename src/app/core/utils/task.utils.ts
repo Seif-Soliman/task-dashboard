@@ -9,9 +9,14 @@ const MS_PER_DAY = 86_400_000;
 const PRIORITY_RANK: Record<TaskPriority, number> = { high: 0, medium: 1, low: 2 };
 
 /** Parses 'YYYY-MM-DD' as a local date (new Date('YYYY-MM-DD') would be UTC and can shift the day). */
-function parseDateOnly(value: string): Date {
+export function parseDateOnly(value: string): Date {
   const [year, month, day] = value.split('-').map(Number);
   return new Date(year, month - 1, day);
+}
+
+export function formatDateOnly(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 }
 
 function startOfDay(date: Date): number {

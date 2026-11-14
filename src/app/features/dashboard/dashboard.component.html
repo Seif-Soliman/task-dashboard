@@ -20,6 +20,7 @@
   [assignees]="assignees()"
   (filtersChange)="filtersService.update($event)"
   (clear)="filtersService.clear()"
+  (newTask)="taskDialog.create()"
 />
 
 <section class="board" aria-label="Task board" tabindex="0">
@@ -34,7 +35,12 @@
     </div>
   } @else {
     @for (column of columns(); track column.status) {
-      <app-board-column [status]="column.status" [title]="column.title" [tasks]="column.tasks" />
+      <app-board-column
+        [status]="column.status"
+        [title]="column.title"
+        [tasks]="column.tasks"
+        (edit)="taskDialog.edit($event)"
+      />
     }
   }
 </section>

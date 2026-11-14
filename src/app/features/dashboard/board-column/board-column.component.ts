@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { TaskStatus, Task } from '../../../core/models/task.model';
 import { TaskCardComponent } from '../task-card/task-card.component';
 
@@ -14,4 +14,5 @@ export class BoardColumnComponent {
   readonly status = input.required<TaskStatus>();
   readonly title = input.required<string>();
   readonly tasks = input.required<readonly Task[]>();
+  readonly edit = output<Task>();
 }
