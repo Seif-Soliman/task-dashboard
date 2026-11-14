@@ -30,4 +30,21 @@ describe('TaskCardComponent', () => {
     expect(el.querySelector('.priority')?.textContent).toContain('high');
     expect(el.textContent).toContain('@John');
   });
+
+  it('offers "Move to" for the other statuses only', async () => {
+    const fixture = TestBed.createComponent(TaskCardComponent);
+    fixture.componentRef.setInput('task', makeTask({ status: 'todo' }));
+    fixture.detectChanges();
+
+    fixture.nativeElement.querySelector('button[aria-label^="Actions"]').click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const items = Array.from(document.querySelectorAll('.mat-mdc-menu-item')).map((i) =>
+      i.textContent?.trim(),
+    );
+    expect(items).toContain('Move to In Progress');
+    expect(items).toContain('Move to Done');
+    expect(items).not.toContain('Move to To Do');
+  });
 });

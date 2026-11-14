@@ -29,13 +29,14 @@ describe('DashboardPage', () => {
 
   it('groups tasks into columns with counts, overdue first', () => {
     const tasks = [
-      makeTask({ id: 'a', title: 'Upcoming', status: 'todo', priority: 'high' }),
+      makeTask({ id: 'a', title: 'Upcoming', status: 'todo', priority: 'high', order: 2000 }),
       makeTask({
         id: 'b',
         title: 'Overdue task',
         status: 'todo',
         priority: 'low',
         dueDate: '2000-01-01',
+        order: 1000,
       }),
       makeTask({ id: 'c', title: 'In flight', status: 'in_progress' }),
     ];

@@ -1,5 +1,11 @@
 import { Task } from '../models/task.model';
-import { formatDateOnly, formatDueInfo, getDueInfo, parseDateOnly, sortTasks } from './task.utils';
+import {
+  formatDateOnly,
+  formatDueInfo,
+  getDueInfo,
+  parseDateOnly,
+  sortByOrder,
+} from './task.utils';
 
 const now = new Date(2026, 10, 13, 12);
 
@@ -14,6 +20,7 @@ export const makeTask = (overrides: Partial<Task> = {}): Task => ({
   tags: ['Design'],
   createdAt: '2026-11-01T00:00:00.000Z',
   updatedAt: '2026-11-01T00:00:00.000Z',
+  order: 1000,
   ...overrides,
 });
 
@@ -47,16 +54,12 @@ describe('task utils', () => {
     expect(formatDueInfo({ kind: 'completed', days: 0 })).toBe('Completed today');
   });
 
-  it('sorts overdue first, then by priority', () => {
-    const sorted = sortTasks(
-      [
-        makeTask({ id: 'low', priority: 'low' }),
-        makeTask({ id: 'high', priority: 'high' }),
-        makeTask({ id: 'overdue', priority: 'medium', dueDate: '2026-11-01' }),
-      ],
-      now,
-    );
-    expect(sorted.map((t) => t.id)).toEqual(['overdue', 'high', 'low']);
+  it('sorts by order', () => {
+    const sorted = sortByOrder([
+      makeTask({ id: 'b', order: 2000 }),
+      makeTask({ id: 'a', order: 1000 }),
+    ]);
+    expect(sorted.map((t) => t.id)).toEqual(['a', 'b']);
   });
 
   it('round-trips date-only strings', () => {

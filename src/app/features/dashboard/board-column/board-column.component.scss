@@ -47,3 +47,9 @@ h2 {
   font-size: 0.8125rem;
   text-align: center;
 }
+li[cdkDrag] {
+  cursor: grab;
+}
+li[cdkDrag]:active {
+  cursor: grabbing;
+}

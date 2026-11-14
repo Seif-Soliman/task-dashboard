@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse, httpResource } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Task, TaskDraft } from '../../../core/models/task.model';
+import { Task, TaskDraft, TaskStatus } from '../../../core/models/task.model';
 import { catchError, defer, map, Observable, of, tap, throwError } from 'rxjs';
-import { buildNewTask, buildUpdatedTask } from '../task-builder/task-builders';
+import { buildMovedTask, buildNewTask, buildUpdatedTask } from '../task-builder/task-builders';
+import { orderBetween } from '../../task/task-order';
 
 @Injectable({ providedIn: 'root' })
 export class TasksService {
@@ -12,16 +13,33 @@ export class TasksService {
 
   create(draft: TaskDraft): Observable<Task> {
     return this.http
-      .post<Task>('/api/tasks', buildNewTask(draft))
+      .post<Task>('/api/tasks', buildNewTask(draft, this.nextOrder(draft.status)))
       .pipe(tap((created) => this.patchLocal((list) => [...list, created])));
   }
 
   update(existing: Task, draft: TaskDraft): Observable<Task> {
+    // Changing status via the form appends to the bottom of the new column.
+    const order = draft.status === existing.status ? existing.order : this.nextOrder(draft.status);
     return this.http
-      .put<Task>(`/api/tasks/${existing.id}`, buildUpdatedTask(existing, draft))
+      .put<Task>(`/api/tasks/${existing.id}`, buildUpdatedTask(existing, draft, order))
       .pipe(
         tap((saved) => this.patchLocal((list) => list.map((t) => (t.id === saved.id ? saved : t)))),
       );
+  }
+
+  private loaded(): Task[] {
+    return this.tasks.hasValue() ? this.tasks.value() : [];
+  }
+
+  private lastOrder(status: TaskStatus, excludeId?: string): number | undefined {
+    const orders = this.loaded()
+      .filter((t) => t.status === status && t.id !== excludeId)
+      .map((t) => t.order);
+    return orders.length ? Math.max(...orders) : undefined;
+  }
+
+  private nextOrder(status: TaskStatus): number {
+    return orderBetween(this.lastOrder(status));
   }
 
   /** Applies the server-confirmed change to the loaded list, so the board updates without a refetch. */
@@ -51,6 +69,30 @@ export class TasksService {
         }),
       );
     });
+  }
+
+  /**
+   * Moves a task to `status`, ranked between two neighbours (their `order` values).
+   */
+  move(task: Task, status: TaskStatus, prevOrder?: number, nextOrder?: number): Observable<void> {
+    return defer(() => {
+      const moved = buildMovedTask(task, status, orderBetween(prevOrder, nextOrder));
+      this.patchLocal((list) => list.map((t) => (t.id === task.id ? moved : t)));
+
+      return this.http.put(`/api/tasks/${task.id}`, moved).pipe(
+        map(() => undefined),
+        catchError((error: unknown) => {
+          // Only revert our own change; leave it if something newer replaced it meanwhile.
+          this.patchLocal((list) => list.map((t) => (t === moved ? task : t)));
+          return throwError(() => error);
+        }),
+      );
+    });
+  }
+
+  /** Menu-driven move: appends to the bottom of the target column. */
+  moveToEnd(task: Task, status: TaskStatus): Observable<void> {
+    return this.move(task, status, this.lastOrder(status, task.id));
   }
 }
 

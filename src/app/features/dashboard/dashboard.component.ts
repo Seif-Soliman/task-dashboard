@@ -3,7 +3,7 @@ import { StatisticsService } from './stat-card/statistics.service';
 import { StatCard } from './stat-card/stat-card.component';
 import { MatButtonModule } from '@angular/material/button';
 import { BoardColumnComponent } from './board-column/board-column.component';
-import { sortTasks } from '../../core/utils/task.utils';
+import { sortByOrder } from '../../core/utils/task.utils';
 import { TasksService } from './task-card/tasks.service';
 import { FilterBarComponent } from '../filter-bar/filter-bar.component';
 import { TaskFiltersService } from '../task-filter/task-filters.service';
@@ -12,11 +12,22 @@ import { UsersService } from './users.service';
 import { STATUS_LABELS, TASK_STATUSES } from '../task-filter/model/task-options';
 import { TaskFormDialogService } from '../task/task-form-dialog/task-form-dialog.service';
 import { TaskDeleteService } from '../task/task-delete.service';
+import { CdkDropListGroup } from '@angular/cdk/drag-drop';
+import { CdkScrollable } from '@angular/cdk/scrolling';
+import { TaskDrop } from './board-column/model/board-column.model';
+import { TaskMoveService } from '../task/task-move.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [StatCard, MatButtonModule, BoardColumnComponent, FilterBarComponent],
+  imports: [
+    StatCard,
+    MatButtonModule,
+    BoardColumnComponent,
+    FilterBarComponent,
+    CdkDropListGroup,
+    CdkScrollable,
+  ],
   providers: [TaskFiltersService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dashboard.component.html',
@@ -29,6 +40,7 @@ export class Dashboard {
   private readonly usersResource = inject(UsersService).users;
   protected readonly taskDialog = inject(TaskFormDialogService);
   protected readonly taskDelete = inject(TaskDeleteService);
+  protected readonly taskMove = inject(TaskMoveService);
 
   protected readonly statsSkeletons = [1, 2, 3, 4];
   protected readonly boardSkeletons = [1, 2, 3];
@@ -40,7 +52,7 @@ export class Dashboard {
   protected readonly columns = computed(() => {
     const filters = this.filtersService.filters();
     const tasks = this.tasksResource.hasValue()
-      ? sortTasks(filterTasks(this.tasksResource.value(), filters))
+      ? sortByOrder(filterTasks(this.tasksResource.value(), filters))
       : [];
     // A status tab shows only that column; "All" shows the full board.
     const statuses = filters.status === 'all' ? TASK_STATUSES : [filters.status];
@@ -51,4 +63,10 @@ export class Dashboard {
       tasks: tasks.filter((task) => task.status === status),
     }));
   });
+
+  protected onDrop({ task, status, index }: TaskDrop): void {
+    const column = this.columns().find((c) => c.status === status);
+    const others = (column?.tasks ?? []).filter((t) => t.id !== task.id);
+    void this.taskMove.move(task, status, others[index - 1]?.order, others[index]?.order);
+  }
 }

@@ -23,7 +23,7 @@
   (newTask)="taskDialog.create()"
 />
 
-<section class="board" aria-label="Task board" tabindex="0">
+<section class="board" aria-label="Task board" tabindex="0" cdkDropListGroup cdkScrollable>
   @if (tasksResource.isLoading()) {
     @for (n of boardSkeletons; track n) {
       <div class="skeleton board-skeleton" aria-hidden="true"></div>
@@ -39,6 +39,8 @@
         [status]="column.status"
         [title]="column.title"
         [tasks]="column.tasks"
+        (taskDropped)="onDrop($event)"
+        (moveTo)="taskMove.moveToEnd($event.task, $event.status)"
         (remove)="taskDelete.delete($event)"
         (edit)="taskDialog.edit($event)"
       />
