@@ -1,6 +1,6 @@
 <section class="stats" aria-label="Task statistics">
   @if (statistics.isLoading()) {
-    @for (n of skeletons; track n) {
+    @for (n of statsSkeletons; track n) {
       <div class="skeleton" aria-hidden="true"></div>
     }
   } @else if (statistics.error()) {
@@ -11,6 +11,23 @@
   } @else {
     @for (stat of statistics.value() ?? []; track stat.id) {
       <app-stat-card [stat]="stat" />
+    }
+  }
+</section>
+
+<section class="board" aria-label="Task board" tabindex="0">
+  @if (tasksResource.isLoading()) {
+    @for (n of boardSkeletons; track n) {
+      <div class="skeleton board-skeleton" aria-hidden="true"></div>
+    }
+  } @else if (tasksResource.error()) {
+    <div class="error" role="alert">
+      <p>Couldn't load tasks.</p>
+      <button mat-stroked-button (click)="tasksResource.reload()">Retry</button>
+    </div>
+  } @else {
+    @for (column of columns(); track column.status) {
+      <app-board-column [status]="column.status" [title]="column.title" [tasks]="column.tasks" />
     }
   }
 </section>

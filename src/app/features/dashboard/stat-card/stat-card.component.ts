@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { Statistic } from '../../../../core/models/statistic.model';
+import { Statistic } from '../../../core/models/statistic.model';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({

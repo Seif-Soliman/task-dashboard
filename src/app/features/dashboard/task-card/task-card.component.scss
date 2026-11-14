@@ -1,0 +1,103 @@
+:host {
+  display: block;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.875rem 1rem;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+.card.overdue {
+  background: #ffebee;
+  border-color: #ef9a9a;
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.priority {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.priority.high {
+  background: #ffebee;
+  color: #c62828;
+}
+.priority.medium {
+  background: #fff3e0;
+  color: #e65100;
+}
+.priority.low {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+h3 {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+.description {
+  margin: 0;
+  color: #5f6368;
+  font-size: 0.8125rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.due {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  font-size: 0.75rem;
+  color: #5f6368;
+}
+.due mat-icon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+}
+.due.overdue {
+  color: #c62828;
+  font-weight: 600;
+}
+.due.completed {
+  color: #2e7d32;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.75rem;
+  color: #5f6368;
+}
+footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e0e0e0;
+  font-size: 0.8125rem;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #1976d2;
+  color: #fff;
+  font-size: 0.625rem;
+  font-weight: 700;
+}
