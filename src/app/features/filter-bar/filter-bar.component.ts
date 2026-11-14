@@ -1,9 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, effect, input, output } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Assignee } from '../../core/models/task.model';
-import { TaskFilters, hasActiveFilters, StatusFilter } from '../dashboard/task-filters';
+import {
+  TaskFilters,
+  hasActiveFilters,
+  StatusFilter,
+  PriorityFilter,
+} from '../dashboard/task-filters';
 import {
   TASK_STATUSES,
   STATUS_LABELS,
@@ -16,6 +19,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { FilterOption } from '../filter-menu/model/filter-menu.model';
+import { FilterMenuComponent } from '../filter-menu/filter-menu.component';
 
 @Component({
   selector: 'app-filter-bar',
@@ -27,6 +32,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    FilterMenuComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './filter-bar.component.html',
@@ -37,25 +43,20 @@ export class FilterBarComponent {
   readonly assignees = input<readonly Assignee[]>([]);
   readonly filtersChange = output<Partial<TaskFilters>>();
   readonly clear = output<void>();
+  readonly newTask = output<void>();
 
-  protected readonly search = new FormControl('', { nonNullable: true });
   protected readonly isFiltered = computed(() => hasActiveFilters(this.filters()));
 
-  protected readonly statusOptions: { value: StatusFilter; label: string }[] = [
+  protected readonly statusOptions: FilterOption<StatusFilter>[] = [
     { value: 'all', label: 'All' },
     ...TASK_STATUSES.map((status) => ({ value: status, label: STATUS_LABELS[status] })),
   ];
-  protected readonly priorities = TASK_PRIORITIES.map((value) => ({
-    value,
-    label: PRIORITY_LABELS[value],
-  }));
-
-  constructor() {
-    this.search.valueChanges
-      .pipe(debounceTime(250), distinctUntilChanged(), takeUntilDestroyed())
-      .subscribe((search) => this.filtersChange.emit({ search }));
-
-    // Keep the input in sync when the URL changes (back button, clear, shared link).
-    effect(() => this.search.setValue(this.filters().search, { emitEvent: false }));
-  }
+  protected readonly priorityOptions: FilterOption<PriorityFilter>[] = [
+    { value: 'all', label: 'All priorities' },
+    ...TASK_PRIORITIES.map((priority) => ({ value: priority, label: PRIORITY_LABELS[priority] })),
+  ];
+  protected readonly assigneeOptions = computed<FilterOption<string>[]>(() => [
+    { value: 'all', label: 'All assignees' },
+    ...this.assignees().map((user) => ({ value: user.id, label: user.name })),
+  ]);
 }
