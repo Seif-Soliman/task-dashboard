@@ -1,0 +1,24 @@
+<a class="skip-link" href="#main" (click)="$event.preventDefault(); main.focus()"
+  >Skip to content</a
+>
+
+<app-header
+  [search]="search()"
+  [showMenuButton]="isCompact()"
+  (searchChange)="onSearch($event)"
+  (menuToggle)="menuOpen.set(!menuOpen())"
+/>
+
+<mat-sidenav-container class="container">
+  <mat-sidenav
+    [mode]="isCompact() ? 'over' : 'side'"
+    [opened]="!isCompact() || menuOpen()"
+    (closedStart)="menuOpen.set(false)"
+  >
+    <app-sidebar (navigated)="menuOpen.set(false)" />
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <main #main id="main" tabindex="-1"><router-outlet /></main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,34 @@
+<section class="bar" aria-label="Task filters">
+  <div class="tabs" role="group" aria-label="Filter by status">
+    @for (option of statusOptions; track option.value) {
+      <button
+        type="button"
+        class="tab"
+        [class.selected]="filters().status === option.value"
+        [attr.aria-pressed]="filters().status === option.value"
+        (click)="filtersChange.emit({ status: option.value })"
+      >
+        {{ option.label }}
+      </button>
+    }
+  </div>
+
+  <div class="actions">
+    @if (isFiltered()) {
+      <button mat-button type="button" (click)="clear.emit()">Clear filters</button>
+    }
+    <app-filter-menu
+      label="Priority"
+      [options]="priorityOptions"
+      [value]="filters().priority"
+      (valueChange)="filtersChange.emit({ priority: $event })"
+    />
+    <app-filter-menu
+      label="Assignee"
+      [options]="assigneeOptions()"
+      [value]="filters().assignee"
+      (valueChange)="filtersChange.emit({ assignee: $event })"
+    />
+    <button mat-flat-button type="button" (click)="newTask.emit()">+ New Task</button>
+  </div>
+</section>

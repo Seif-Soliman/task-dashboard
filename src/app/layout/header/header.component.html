@@ -1,0 +1,35 @@
+<header class="header">
+  <div class="start">
+    @if (showMenuButton()) {
+      <button
+        mat-icon-button
+        type="button"
+        aria-label="Toggle navigation"
+        (click)="menuToggle.emit()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+    }
+    <a class="brand" routerLink="/">
+      <span class="logo" aria-hidden="true"><mat-icon>task_alt</mat-icon></span>
+      <span class="brand-text">Task Manager</span>
+    </a>
+  </div>
+
+  <label class="search">
+    <mat-icon aria-hidden="true">search</mat-icon>
+    <input
+      type="search"
+      placeholder="Search tasks..."
+      aria-label="Search tasks"
+      [formControl]="searchControl"
+    />
+  </label>
+
+  <div class="end">
+    <button mat-icon-button type="button" aria-label="Notifications">
+      <mat-icon class="bell">notifications</mat-icon>
+    </button>
+    <span class="avatar" role="img" aria-label="Signed in as John Doe">JD</span>
+  </div>
+</header>

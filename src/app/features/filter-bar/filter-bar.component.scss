@@ -1,0 +1,43 @@
+:host {
+  display: block;
+  margin-top: 1.5rem;
+}
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(16, 24, 40, 0.08);
+}
+.tabs,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tab {
+  padding: 0.5rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #202124;
+  font: inherit;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+.tab:hover {
+  background: #eef3fb;
+}
+.tab.selected {
+  background: #1976d2;
+  color: #fff;
+}
+.tab:focus-visible {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}

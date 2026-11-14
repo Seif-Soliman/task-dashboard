@@ -5,6 +5,11 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+:root {
+  --mat-sys-primary: #1976d2;
+  --mat-sys-on-primary: #fff;
+}
+
 html {
   @include mat.theme(
     (
@@ -29,7 +34,7 @@ body {
   // variables at https://material.angular.dev/guide/system-variables
   background: #f5f7fb;
   color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
+  font-family: Inter, 'Segoe UI', Roboto, sans-serif;
 
   // Reset the user agent margin.
   margin: 0;
