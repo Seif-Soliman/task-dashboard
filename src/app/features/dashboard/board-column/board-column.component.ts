@@ -15,4 +15,5 @@ export class BoardColumnComponent {
   readonly title = input.required<string>();
   readonly tasks = input.required<readonly Task[]>();
   readonly edit = output<Task>();
+  readonly remove = output<Task>();
 }

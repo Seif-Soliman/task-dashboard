@@ -8,6 +8,7 @@ import { makeTask } from '../../../core/utils/task.utils.spec';
 
 describe('TasksService', () => {
   const existing = makeTask({ id: 't1' });
+  const other = makeTask({ id: 't2' });
   const draft: TaskDraft = { ...existing, title: 'Changed' };
   let service: TasksService;
   let http: HttpTestingController;
@@ -25,7 +26,7 @@ describe('TasksService', () => {
     http = TestBed.inject(HttpTestingController);
     const app = TestBed.inject(ApplicationRef);
     app.tick();
-    http.expectOne('/api/tasks').flush([existing]);
+    http.expectOne('/api/tasks').flush([existing, other]);
     await app.whenStable();
   });
 
@@ -35,7 +36,7 @@ describe('TasksService', () => {
     expect(req.request.body.title).toBe('Changed');
     req.flush({ ...req.request.body, id: 't2' });
 
-    expect(service.tasks.value()?.map((t) => t.id)).toEqual(['t1', 't2']);
+    expect(service.tasks.value()?.map((t) => t.id)).toEqual(['t1', 't2', 't3']);
   });
 
   it('replaces an updated task in the loaded list', () => {
@@ -50,6 +51,6 @@ describe('TasksService', () => {
     service.create(draft).subscribe({ error: () => undefined });
     http.expectOne('/api/tasks').flush('boom', { status: 500, statusText: 'Server Error' });
 
-    expect(service.tasks.value()?.length).toBe(1);
+    expect(service.tasks.value()?.length).toBe(2);
   });
 });
