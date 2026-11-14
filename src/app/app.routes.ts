@@ -18,6 +18,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/analytics/analytics.component').then((m) => m.AnalyticsComponent),
       },
+      {
+        path: 'team',
+        title: 'Team',
+        loadComponent: () => import('./features/team/team.component').then((m) => m.TeamComponent),
+      },
     ],
   },
   { path: '**', redirectTo: 'dashboard' },

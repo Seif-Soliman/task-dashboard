@@ -30,6 +30,8 @@
     <button mat-icon-button type="button" aria-label="Notifications">
       <mat-icon class="bell">notifications</mat-icon>
     </button>
-    <span class="avatar" role="img" aria-label="Signed in as John Doe">JD</span>
+    <span class="avatar" role="img" [attr.aria-label]="'Signed in as ' + user().name">{{
+      user().avatar
+    }}</span>
   </div>
 </header>

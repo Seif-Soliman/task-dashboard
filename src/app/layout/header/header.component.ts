@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { debounceTime, map, filter } from 'rxjs';
+import { Assignee } from '../../core/models/task.model';
 
 @Component({
   selector: 'app-header',
@@ -14,6 +15,7 @@ import { debounceTime, map, filter } from 'rxjs';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+  readonly user = input.required<Assignee>();
   readonly search = input('');
   readonly showMenuButton = input(false);
   readonly searchChange = output<string>();
@@ -21,7 +23,6 @@ export class HeaderComponent {
 
   protected readonly searchControl = new FormControl('', { nonNullable: true });
 
-  /** Last value this component emitted or received. Stops the URL echo from overwriting what the user is still typing. */
   private lastEmitted = '';
 
   constructor() {

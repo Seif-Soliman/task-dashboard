@@ -7,6 +7,7 @@ import { map } from 'rxjs';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { TaskFormDialogService } from '../../features/task/task-form-dialog/task-form-dialog.service';
+import { CurrentUserService } from '../../core/auth/current-user.service';
 
 const COMPACT_QUERY = '(max-width: 959.98px)';
 
@@ -22,6 +23,7 @@ export class ShellComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly breakpoints = inject(BreakpointObserver);
   private readonly taskDialog = inject(TaskFormDialogService);
+  protected readonly user = inject(CurrentUserService).user;
 
   protected onNewTask(): void {
     this.menuOpen.set(false);
