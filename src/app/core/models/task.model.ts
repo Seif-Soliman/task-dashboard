@@ -22,3 +22,8 @@ export interface Task {
   createdAt: string;
   updatedAt: string;
 }
+
+export type TaskDraft = Pick<
+  Task,
+  'title' | 'description' | 'status' | 'priority' | 'dueDate' | 'assignee' | 'tags'
+>;

@@ -10,6 +10,7 @@ import { TaskFiltersService } from '../task-filter/task-filters.service';
 import { filterTasks } from '../task-filter/model/task-filters';
 import { UsersService } from './users.service';
 import { STATUS_LABELS, TASK_STATUSES } from '../task-filter/model/task-options';
+import { TaskFormDialogService } from '../task/task-form-dialog/task-form-dialog.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,9 +26,11 @@ export class Dashboard {
   protected readonly tasksResource = inject(TasksService).tasks;
   protected readonly filtersService = inject(TaskFiltersService);
   private readonly usersResource = inject(UsersService).users;
+  protected readonly taskDialog = inject(TaskFormDialogService);
 
   protected readonly statsSkeletons = [1, 2, 3, 4];
   protected readonly boardSkeletons = [1, 2, 3];
+
   protected readonly assignees = computed(() =>
     this.usersResource.hasValue() ? this.usersResource.value() : [],
   );

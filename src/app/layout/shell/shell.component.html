@@ -15,7 +15,7 @@
     [opened]="!isCompact() || menuOpen()"
     (closedStart)="menuOpen.set(false)"
   >
-    <app-sidebar (navigated)="menuOpen.set(false)" />
+    <app-sidebar (navigated)="menuOpen.set(false)" (newTask)="onNewTask()" />
   </mat-sidenav>
 
   <mat-sidenav-content>
