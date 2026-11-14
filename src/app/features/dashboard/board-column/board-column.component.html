@@ -1,0 +1,14 @@
+<section class="column" [attr.aria-labelledby]="'board-col-' + status()">
+  <header>
+    <h2 [id]="'board-col-' + status()">{{ title() }}</h2>
+    <span class="count" [attr.aria-label]="tasks().length + ' tasks'">{{ tasks().length }}</span>
+  </header>
+  <ul class="cards">
+    @for (task of tasks(); track task.id) {
+      <li><app-task-card [task]="task" /></li>
+    } @empty {
+      <li class="empty">No tasks</li>
+    }
+  </ul>
+</section>
+s
