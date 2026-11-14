@@ -15,6 +15,13 @@
   }
 </section>
 
+<app-filter-bar
+  [filters]="filtersService.filters()"
+  [assignees]="assignees()"
+  (filtersChange)="filtersService.update($event)"
+  (clear)="filtersService.clear()"
+/>
+
 <section class="board" aria-label="Task board" tabindex="0">
   @if (tasksResource.isLoading()) {
     @for (n of boardSkeletons; track n) {

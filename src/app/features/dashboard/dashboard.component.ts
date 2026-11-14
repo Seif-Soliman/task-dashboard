@@ -5,18 +5,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { BoardColumnComponent } from './board-column/board-column.component';
 import { sortTasks } from '../../core/utils/task.utils';
 import { TasksService } from './task-card/tasks.service';
-import { TaskStatus } from '../../core/models/task.model';
-
-const COLUMNS: readonly { status: TaskStatus; title: string }[] = [
-  { status: 'todo', title: 'To Do' },
-  { status: 'in_progress', title: 'In Progress' },
-  { status: 'done', title: 'Done' },
-];
+import { FilterBarComponent } from '../filter-bar/filter-bar.component';
+import { TaskFiltersService } from './task-filters.service';
+import { filterTasks } from './task-filters';
+import { UsersService } from './users.service';
+import { STATUS_LABELS, TASK_STATUSES } from './task-options';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [StatCard, MatButtonModule, BoardColumnComponent],
+  imports: [StatCard, MatButtonModule, BoardColumnComponent, FilterBarComponent],
+  providers: [TaskFiltersService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -24,15 +23,27 @@ const COLUMNS: readonly { status: TaskStatus; title: string }[] = [
 export class Dashboard {
   protected readonly statistics = inject(StatisticsService).statistics;
   protected readonly tasksResource = inject(TasksService).tasks;
+  protected readonly filtersService = inject(TaskFiltersService);
+  private readonly usersResource = inject(UsersService).users;
 
   protected readonly statsSkeletons = [1, 2, 3, 4];
   protected readonly boardSkeletons = [1, 2, 3];
+  protected readonly assignees = computed(() =>
+    this.usersResource.hasValue() ? this.usersResource.value() : [],
+  );
 
   protected readonly columns = computed(() => {
-    const tasks = this.tasksResource.hasValue() ? sortTasks(this.tasksResource.value()) : [];
-    return COLUMNS.map((column) => ({
-      ...column,
-      tasks: tasks.filter((task) => task.status === column.status),
+    const filters = this.filtersService.filters();
+    const tasks = this.tasksResource.hasValue()
+      ? sortTasks(filterTasks(this.tasksResource.value(), filters))
+      : [];
+    // A status tab shows only that column; "All" shows the full board.
+    const statuses = filters.status === 'all' ? TASK_STATUSES : [filters.status];
+
+    return statuses.map((status) => ({
+      status,
+      title: STATUS_LABELS[status],
+      tasks: tasks.filter((task) => task.status === status),
     }));
   });
 }
