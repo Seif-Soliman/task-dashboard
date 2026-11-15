@@ -5,6 +5,11 @@ export type DueInfo =
   | { kind: 'upcoming'; days: number }
   | { kind: 'completed'; days: number };
 
+export interface DueLabel {
+  key: string;
+  count?: number;
+}
+
 const MS_PER_DAY = 86_400_000;
 
 export function parseDateOnly(value: string): Date {
@@ -21,7 +26,6 @@ function startOfDay(date: Date): number {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
 }
 
-/** Whole calendar days from `from` to `to` (positive when `to` is later). */
 function daysBetween(from: Date, to: Date): number {
   return Math.round((startOfDay(to) - startOfDay(from)) / MS_PER_DAY);
 }
@@ -43,16 +47,17 @@ export function sortByOrder(tasks: readonly Task[]): Task[] {
   return [...tasks].sort((a, b) => a.order - b.order);
 }
 
-const plural = (count: number, unit: string) => `${count} ${unit}${count === 1 ? '' : 's'}`;
-
-/** English labels for now; this becomes translation keys with params in the i18n branch. */
-export function formatDueInfo({ kind, days }: DueInfo): string {
-  if (kind === 'overdue') return `Overdue by ${plural(days, 'day')}`;
+export function getDueLabel({ kind, days }: DueInfo): DueLabel {
+  if (kind === 'overdue') return { key: 'task.due.overdueDays', count: days };
   if (kind === 'completed') {
-    if (days === 0) return 'Completed today';
-    return days === 1 ? 'Completed yesterday' : `Completed ${plural(days, 'day')} ago`;
+    if (days === 0) return { key: 'task.due.completedToday' };
+    return days === 1
+      ? { key: 'task.due.completedYesterday' }
+      : { key: 'task.due.completedDaysAgo', count: days };
   }
-  if (days === 0) return 'Due today';
-  if (days === 1) return 'Due tomorrow';
-  return days % 7 === 0 ? `Due in ${plural(days / 7, 'week')}` : `Due in ${plural(days, 'day')}`;
+  if (days === 0) return { key: 'task.due.today' };
+  if (days === 1) return { key: 'task.due.tomorrow' };
+  return days % 7 === 0
+    ? { key: 'task.due.inWeeks', count: days / 7 }
+    : { key: 'task.due.inDays', count: days };
 }

@@ -4,7 +4,7 @@
       <button
         mat-icon-button
         type="button"
-        aria-label="Toggle navigation"
+        [attr.aria-label]="'header.toggleNavigation' | translate"
         (click)="menuToggle.emit()"
       >
         <mat-icon>menu</mat-icon>
@@ -12,7 +12,7 @@
     }
     <a class="brand" routerLink="/">
       <span class="logo" aria-hidden="true"><mat-icon>task_alt</mat-icon></span>
-      <span class="brand-text">Task Manager</span>
+      <span class="brand-text">{{ 'app.name' | translate }}</span>
     </a>
   </div>
 
@@ -20,18 +20,30 @@
     <mat-icon aria-hidden="true">search</mat-icon>
     <input
       type="search"
-      placeholder="Search tasks..."
-      aria-label="Search tasks"
+      [placeholder]="'header.searchPlaceholder' | translate"
+      [attr.aria-label]="'header.searchLabel' | translate"
       [formControl]="searchControl"
     />
   </label>
 
   <div class="end">
-    <button mat-icon-button type="button" aria-label="Notifications">
+    <button
+      mat-button
+      type="button"
+      class="language"
+      [attr.aria-label]="'app.language.switchTo' | translate: { language: otherLabel() }"
+      (click)="languageChange.emit(other())"
+    >
+      <span [attr.lang]="other()">{{ otherLabel() }}</span>
+    </button>
+    <button mat-icon-button type="button" [attr.aria-label]="'header.notifications' | translate">
       <mat-icon class="bell">notifications</mat-icon>
     </button>
-    <span class="avatar" role="img" [attr.aria-label]="'Signed in as ' + user().name">{{
-      user().avatar
-    }}</span>
+    <span
+      class="avatar"
+      role="img"
+      [attr.aria-label]="'header.signedInAs' | translate: { name: user().name }"
+      >{{ user().avatar }}</span
+    >
   </div>
 </header>

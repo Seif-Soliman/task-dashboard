@@ -1,17 +1,8 @@
 <section class="column" [attr.aria-labelledby]="'board-col-' + status()">
   <header>
     <h2 [id]="'board-col-' + status()">{{ title() }}</h2>
-    <span class="count" [attr.aria-label]="tasks().length + ' tasks'">{{ tasks().length }}</span>
+    <span class="count" [attr.aria-label]="countLabel()">{{ tasks().length }}</span>
   </header>
-  <!-- <ul class="cards">
-    @for (task of tasks(); track task.id) {
-      <li>
-        <app-task-card [task]="task" (edit)="edit.emit($event)" (remove)="remove.emit($event)" />
-      </li>
-    } @empty {
-      <li class="empty">No tasks</li>
-    }
-  </ul> -->
 
   <ul class="cards" cdkDropList [cdkDropListData]="status()" (cdkDropListDropped)="onDrop($event)">
     @for (task of tasks(); track task.id) {
@@ -24,7 +15,7 @@
         />
       </li>
     } @empty {
-      <li class="empty">No tasks</li>
+      <li class="empty">{{ 'dashboard.board.empty' | translate }}</li>
     }
   </ul>
 </section>

@@ -5,6 +5,11 @@
   --mat-sys-on-primary: #fff;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 html {
   @include mat.theme(
     (
@@ -22,18 +27,13 @@ body {
   color-scheme: light;
   background: #f5f7fb;
   color: var(--mat-sys-on-surface);
-  font-family: Inter, 'Segoe UI', Roboto, sans-serif;
+  font-family: Inter, 'Noto Sans Arabic', 'Segoe UI', Roboto, sans-serif;
 
   margin: 0;
 }
 
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+:lang(ar) {
+  letter-spacing: 0 !important;
 }
 
 .cdk-drag-preview {

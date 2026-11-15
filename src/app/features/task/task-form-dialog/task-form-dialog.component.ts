@@ -17,6 +17,7 @@ import {
   Validators,
   FormControl,
   ReactiveFormsModule,
+  AbstractControl,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { finalize } from 'rxjs';
@@ -25,13 +26,13 @@ import { parseDateOnly } from '../../../core/utils/task.utils';
 import { toFormValue, toTaskDraft } from '../../dashboard/task-builder/task-form.mapper';
 import { TasksService } from '../tasks.service';
 import { UsersService } from '../../dashboard/users.service';
-import { getErrorMessage } from '../../shared/forms/form-errors';
+import { getErrorKey, getErrorMessage } from '../../shared/forms/form-errors';
 import { notBlank, notBeforeToday, maxItems, uniqueValues } from '../../shared/forms/validators';
 import {
   TASK_STATUSES,
-  STATUS_LABELS,
   TASK_PRIORITIES,
-  PRIORITY_LABELS,
+  PRIORITY_KEYS,
+  STATUS_KEYS,
 } from '../../task-filter/model/task-options';
 import { MatButtonModule } from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -47,6 +48,8 @@ import {
   TaskFormDialogData,
   TITLE_MAX,
 } from './model/task-form-dialog.model';
+import { injectT } from '../../../core/i18n/inject-t';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-task-form-dialog',
@@ -59,6 +62,7 @@ import {
     MatDatepickerModule,
     MatButtonModule,
     MatIconModule,
+    TranslatePipe,
   ],
   providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -75,18 +79,46 @@ export class TaskFormDialogComponent {
   private readonly injector = inject(Injector);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly tagInputs = viewChildren<ElementRef<HTMLInputElement>>('tagInput');
+  private readonly t = injectT();
 
+  protected readonly titleMax = TITLE_MAX;
+  protected readonly descriptionMax = DESCRIPTION_MAX;
+  protected readonly tagMax = TAG_MAX;
+  protected readonly maxTags = MAX_TAGS;
   protected readonly task = this.data.task;
   protected readonly isEdit = !!this.task;
-  protected readonly descriptionMax = DESCRIPTION_MAX;
-  protected readonly maxTags = MAX_TAGS;
   protected readonly messageFor = getErrorMessage;
 
   protected readonly saving = signal(false);
   protected readonly submitError = signal(false);
+
+  protected readonly statusOptions = TASK_STATUSES.map((value) => ({
+    value,
+    label: this.t(STATUS_KEYS[value]),
+  }));
+  protected readonly priorityOptions = TASK_PRIORITIES.map((value) => ({
+    value,
+    label: this.t(PRIORITY_KEYS[value]),
+  }));
+
   protected readonly submitLabel = computed(() =>
-    this.saving() ? 'Saving…' : this.isEdit ? 'Save changes' : 'Create task',
+    this.t(
+      this.saving()
+        ? 'form.actions.saving'
+        : this.isEdit
+          ? 'form.actions.save'
+          : 'form.actions.create',
+    ),
   );
+
+  protected error(
+    control: AbstractControl,
+    prefix: string,
+    params?: Record<string, unknown>,
+  ): string {
+    const key = getErrorKey(control, prefix);
+    return key ? this.t(key, params) : '';
+  }
 
   /** The current assignee stays selectable even if the users request failed or no longer lists them. */
   protected readonly assignees = computed(() => {
@@ -94,15 +126,6 @@ export class TaskFormDialogComponent {
     const current = this.task?.assignee;
     return current && !list.some((user) => user.id === current.id) ? [...list, current] : list;
   });
-
-  protected readonly statusOptions = TASK_STATUSES.map((value) => ({
-    value,
-    label: STATUS_LABELS[value],
-  }));
-  protected readonly priorityOptions = TASK_PRIORITIES.map((value) => ({
-    value,
-    label: PRIORITY_LABELS[value],
-  }));
 
   readonly form = this.fb.group({
     title: ['', [Validators.required, notBlank, Validators.maxLength(TITLE_MAX)]],

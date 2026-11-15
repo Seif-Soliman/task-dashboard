@@ -1,4 +1,4 @@
-<section class="stats" aria-label="Task statistics">
+<section class="stats" [attr.aria-label]="'dashboard.stats.label' | translate">
   @if (statistics.isLoading()) {
     @for (n of statsSkeletons; track n) {
       <div class="skeleton" aria-hidden="true"></div>
@@ -6,7 +6,7 @@
   } @else if (statistics.error()) {
     <app-error-state
       class="error"
-      message="Couldn't load statistics."
+      [message]="'dashboard.stats.error' | translate"
       (retry)="statistics.reload()"
     />
   } @else {
@@ -24,7 +24,13 @@
   (newTask)="taskDialog.create()"
 />
 
-<section class="board" aria-label="Task board" tabindex="0" cdkDropListGroup cdkScrollable>
+<section
+  class="board"
+  [attr.aria-label]="'dashboard.board.label' | translate"
+  tabindex="0"
+  cdkDropListGroup
+  cdkScrollable
+>
   @if (tasksResource.isLoading()) {
     @for (n of boardSkeletons; track n) {
       <div class="skeleton board-skeleton" aria-hidden="true"></div>
@@ -32,7 +38,7 @@
   } @else if (tasksResource.error()) {
     <app-error-state
       class="error"
-      message="Couldn't load tasks."
+      [message]="'dashboard.board.error' | translate"
       (retry)="tasksResource.reload()"
     />
   } @else {

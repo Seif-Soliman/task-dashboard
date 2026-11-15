@@ -4,10 +4,7 @@
       <span class="avatar" aria-hidden="true">{{ row.user.avatar }}</span>
       <div>
         <p>
-          <strong>{{ row.user.name }}</strong> {{ row.verb }} <strong>{{ row.taskTitle }}</strong>
-          @if (row.target) {
-            to {{ row.target }}
-          }
+          <strong>{{ row.user.name }}</strong> {{ row.message }}
         </p>
         <time [attr.datetime]="row.createdAt" [title]="row.createdAt | date: 'medium'">{{
           row.when
@@ -15,6 +12,6 @@
       </div>
     </li>
   } @empty {
-    <li class="empty">No activity yet.</li>
+    <li class="empty">{{ 'activity.empty' | translate }}</li>
   }
 </ol>

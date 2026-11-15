@@ -4,10 +4,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, firstValueFrom } from 'rxjs';
 import { Task, TaskStatus } from '../../../core/models/task.model';
 import { TasksService } from '../tasks.service';
-import { STATUS_LABELS } from '../../task-filter/model/task-options';
+import { STATUS_KEYS } from '../../task-filter/model/task-options';
+import { injectT } from '../../../core/i18n/inject-t';
 
 @Injectable({ providedIn: 'root' })
 export class TaskMoveService {
+  private readonly t = injectT();
   private readonly tasks = inject(TasksService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly announcer = inject(LiveAnnouncer);
@@ -23,9 +25,11 @@ export class TaskMoveService {
   private async run(task: Task, status: TaskStatus, request$: Observable<void>): Promise<void> {
     try {
       await firstValueFrom(request$);
-      void this.announcer.announce(`Moved ${task.title} to ${STATUS_LABELS[status]}`);
+      void this.announcer.announce(
+        this.t('move.announce', { title: task.title, status: this.t(STATUS_KEYS[status]) }),
+      );
     } catch {
-      this.snackBar.open('Couldn’t move the task. It was put back.', 'Dismiss', { duration: 6000 });
+      this.snackBar.open(this.t('move.failed'), this.t('common.dismiss'), { duration: 6000 });
     }
   }
 }

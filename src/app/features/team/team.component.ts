@@ -6,10 +6,11 @@ import { ActivityFeedService } from './activity-feed.service';
 import { UsersService } from '../dashboard/users.service';
 import { TasksService } from '../task/tasks.service';
 import { memberStats } from './team-stats';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-team',
-  imports: [MemberCardComponent, ActivityListComponent, ErrorStateComponent],
+  imports: [MemberCardComponent, ActivityListComponent, ErrorStateComponent, TranslatePipe],
   providers: [ActivityFeedService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './team.component.html',

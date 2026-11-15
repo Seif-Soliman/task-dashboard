@@ -1,7 +1,7 @@
 <article class="card">
   <p class="title">
-    <span aria-hidden="true">{{ stat().icon }}</span> {{ stat().title }}
+    <span aria-hidden="true">{{ stat().icon }}</span> {{ title() }}
   </p>
   <p class="value">{{ stat().value }}</p>
-  <p [class]="'change ' + stat().changeType">{{ stat().change }} {{ stat().changeLabel }}</p>
+  <p [class]="'change ' + stat().changeType">{{ stat().change }} {{ changeLabel() }}</p>
 </article>

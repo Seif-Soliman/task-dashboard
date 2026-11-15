@@ -1,6 +1,6 @@
-<a class="skip-link" href="#main" (click)="$event.preventDefault(); main.focus()"
-  >Skip to content</a
->
+<a class="skip-link" href="#main" (click)="$event.preventDefault(); main.focus()">{{
+  'app.skipToContent' | translate
+}}</a>
 
 <app-header
   [search]="search()"
@@ -8,6 +8,8 @@
   [showMenuButton]="isCompact()"
   (searchChange)="onSearch($event)"
   (menuToggle)="menuOpen.set(!menuOpen())"
+  [language]="language()"
+  (languageChange)="languageService.switchTo($event)"
 />
 
 <mat-sidenav-container class="container">

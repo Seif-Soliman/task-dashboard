@@ -2,10 +2,11 @@ import type { ChartData } from 'chart.js';
 import { TaskStatus, TaskPriority, Task } from '../../core/models/task.model';
 import {
   TASK_STATUSES,
-  STATUS_LABELS,
   TASK_PRIORITIES,
-  PRIORITY_LABELS,
+  STATUS_KEYS,
+  PRIORITY_KEYS,
 } from '../task-filter/model/task-options';
+import { Translate } from '../../core/i18n/inject-t';
 
 export interface Slice {
   label: string;
@@ -36,20 +37,19 @@ export function countByPriority(tasks: readonly Task[]): Record<TaskPriority, nu
   return counts;
 }
 
-/** Always one slice per status, in board order, so empty statuses still show up as zero. */
-export function statusSlices(tasks: readonly Task[]): Slice[] {
+export function statusSlices(tasks: readonly Task[], t: Translate): Slice[] {
   const counts = countByStatus(tasks);
   return TASK_STATUSES.map((status) => ({
-    label: STATUS_LABELS[status],
+    label: t(STATUS_KEYS[status]),
     value: counts[status],
     color: STATUS_COLORS[status],
   }));
 }
 
-export function prioritySlices(tasks: readonly Task[]): Slice[] {
+export function prioritySlices(tasks: readonly Task[], t: Translate): Slice[] {
   const counts = countByPriority(tasks);
   return TASK_PRIORITIES.map((priority) => ({
-    label: PRIORITY_LABELS[priority],
+    label: t(PRIORITY_KEYS[priority]),
     value: counts[priority],
     color: PRIORITY_COLORS[priority],
   }));
