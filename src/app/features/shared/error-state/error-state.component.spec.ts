@@ -1,12 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { ErrorStateComponent } from './error-state.component';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('ErrorStateComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ErrorStateComponent],
-      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
   });
 

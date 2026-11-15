@@ -1,13 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { FilterBarComponent } from './filter-bar.component';
 import { TaskFilters, DEFAULT_FILTERS } from '../task-filter/model/task-filters';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('FilterBarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FilterBarComponent],
-      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
   });
 

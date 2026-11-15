@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { MemberCardComponent } from './member-card.component';
-import { provideZonelessChangeDetection } from '@angular/core';
 import { makeTask } from '../../../core/utils/task.utils.spec';
 
 describe('MemberCardComponent', () => {
   function render(stats: { open: number; done: number; overdue: number }) {
     TestBed.configureTestingModule({
-      providers: [provideRouter([]), provideZonelessChangeDetection()],
+      providers: [provideRouter([])],
     });
     const fixture = TestBed.createComponent(MemberCardComponent);
     fixture.componentRef.setInput('member', { user: makeTask().assignee, ...stats });

@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { FilterMenuComponent } from './filter-menu.component';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('FilterMenuComponent', () => {
   const options = [
@@ -11,7 +10,6 @@ describe('FilterMenuComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [FilterMenuComponent],
-      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
   });
 

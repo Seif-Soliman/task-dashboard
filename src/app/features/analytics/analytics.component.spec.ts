@@ -1,22 +1,33 @@
-import { signal } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { makeTask } from '../../core/utils/task.utils.spec';
 import { CHART_FACTORY } from '../shared/chart/chart.component';
 import { TasksService } from '../task/tasks.service';
 import { AnalyticsComponent } from './analytics.component';
+import { signal } from '@angular/core';
 
 describe('Analytics', () => {
-  function render(resource: Record<string, unknown>) {
-    TestBed.configureTestingModule({
+  let fixture: ComponentFixture<AnalyticsComponent>;
+  let tasksServiceMock: { tasks: Record<string, unknown> };
+
+  beforeEach(async () => {
+    tasksServiceMock = { tasks: {} };
+
+    await TestBed.configureTestingModule({
+      imports: [AnalyticsComponent],
       providers: [
-        { provide: TasksService, useValue: { tasks: resource } },
+        { provide: TasksService, useValue: tasksServiceMock },
         {
           provide: CHART_FACTORY,
           useValue: () => ({ data: {}, options: {}, update: vi.fn(), destroy: vi.fn() }),
         },
       ],
-    });
-    const fixture = TestBed.createComponent(AnalyticsComponent);
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AnalyticsComponent);
+  });
+
+  function render(resource: Record<string, unknown>) {
+    tasksServiceMock.tasks = resource;
     fixture.detectChanges();
     return fixture.nativeElement as HTMLElement;
   }

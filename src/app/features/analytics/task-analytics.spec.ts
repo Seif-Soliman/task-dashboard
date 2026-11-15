@@ -25,11 +25,9 @@ describe('task analytics', () => {
 
   it('builds labelled slices in board order', () => {
     expect(statusSlices(tasks, t).map((s) => [s.label, s.value])).toEqual([
-      [
-        ['status.todo', 2],
-        ['status.in_progress', 0],
-        ['status.done', 1],
-      ],
+      ['status.todo', 2],
+      ['status.in_progress', 0],
+      ['status.done', 1],
     ]);
   });
 

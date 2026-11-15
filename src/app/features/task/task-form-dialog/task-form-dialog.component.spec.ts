@@ -5,14 +5,12 @@ import { of, throwError } from 'rxjs';
 import { makeTask } from '../../../core/utils/task.utils.spec';
 import { TasksService } from '../tasks.service';
 import { UsersService } from '../../dashboard/users.service';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('TaskFormDialogComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TaskFormDialogComponent],
       providers: [
-        provideZonelessChangeDetection(),
         { provide: MAT_DIALOG_DATA, useValue: { task: undefined } },
         { provide: MatDialogRef, useValue: dialogRef },
         { provide: TasksService, useValue: tasksService },

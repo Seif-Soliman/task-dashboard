@@ -11,5 +11,6 @@ export default defineConfig({
         lines: 80,
       },
     },
+    setupFiles: ['src/app/core/testing/test-providers.ts'],
   },
 });

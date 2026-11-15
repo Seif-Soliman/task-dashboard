@@ -2,13 +2,11 @@ import { TestBed } from '@angular/core/testing';
 
 import { TaskCardComponent } from './task-card.component';
 import { makeTask } from '../../../core/utils/task.utils.spec';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('TaskCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TaskCardComponent],
-      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
   });
 

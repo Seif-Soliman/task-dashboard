@@ -1,4 +1,4 @@
-import { ApplicationRef, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import type { ChartConfiguration } from 'chart.js';
 import { CHART_FACTORY, ChartComponent } from './chart.component';
@@ -13,7 +13,7 @@ describe('ChartComponent', () => {
     const handle = { data: {}, options: {}, update: vi.fn(), destroy: vi.fn() };
     const factory = vi.fn().mockReturnValue(handle);
     TestBed.configureTestingModule({
-      providers: [{ provide: CHART_FACTORY, useValue: factory }, provideZonelessChangeDetection()],
+      providers: [{ provide: CHART_FACTORY, useValue: factory }],
     });
 
     const fixture = TestBed.createComponent(ChartComponent);

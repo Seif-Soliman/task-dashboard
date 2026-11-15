@@ -3,13 +3,11 @@ import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { ShellComponent } from './shell.component';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('ShellComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ShellComponent],
-      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
   });
 

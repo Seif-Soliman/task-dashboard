@@ -4,13 +4,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { of } from 'rxjs';
 import { TaskFormDialogService } from './task-form-dialog.service';
 import { makeTask } from '../../../core/utils/task.utils.spec';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('TaskFormDialogService', () => {
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [provideZonelessChangeDetection()],
-    });
+    TestBed.configureTestingModule({});
   });
 
   function setup(result: unknown) {

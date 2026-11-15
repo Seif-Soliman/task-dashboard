@@ -85,7 +85,8 @@
           "options": {
             "tsConfig": "tsconfig.spec.json",
             "runner": "vitest",
-            "buildTarget": "task-dashboard:build:development"
+            "buildTarget": "task-dashboard:build:development",
+            "providersFile": "src/app/core/testing/test-providers.ts"
           }
         },
         "lint": {

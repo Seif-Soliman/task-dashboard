@@ -3,13 +3,12 @@ import { ChartConfiguration } from 'chart.js';
 import { Slice } from '../task-analytics';
 import { ChartComponent } from '../../shared/chart/chart.component';
 import { injectT } from '../../../core/i18n/inject-t';
-import { TranslatePipe } from '@ngx-translate/core';
 
 let nextId = 0;
 
 @Component({
   selector: 'app-chart-card',
-  imports: [ChartComponent, TranslatePipe],
+  imports: [ChartComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './chart-card.component.html',
   styleUrl: './chart-card.component.scss',

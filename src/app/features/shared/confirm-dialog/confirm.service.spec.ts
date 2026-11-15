@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { of } from 'rxjs';
 import { ConfirmService } from './confirm.service';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('ConfirmService', () => {
   let service: ConfirmService;
@@ -16,7 +15,7 @@ describe('ConfirmService', () => {
     }));
 
     TestBed.configureTestingModule({
-      providers: [provideZonelessChangeDetection(), { provide: MatDialog, useValue: { open } }],
+      providers: [{ provide: MatDialog, useValue: { open } }],
     });
 
     service = TestBed.inject(ConfirmService);
