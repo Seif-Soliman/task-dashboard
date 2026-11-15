@@ -1,11 +1,5 @@
 import { Task } from '../models/task.model';
-import {
-  formatDateOnly,
-  formatDueInfo,
-  getDueInfo,
-  parseDateOnly,
-  sortByOrder,
-} from './task.utils';
+import { formatDateOnly, getDueInfo, getDueLabel, parseDateOnly, sortByOrder } from './task.utils';
 
 const now = new Date(2026, 10, 13, 12);
 
@@ -48,10 +42,17 @@ describe('task utils', () => {
     expect(getDueInfo(task, now)).toEqual({ kind: 'completed', days: 1 });
   });
 
-  it('formats due labels', () => {
-    expect(formatDueInfo({ kind: 'overdue', days: 2 })).toBe('Overdue by 2 days');
-    expect(formatDueInfo({ kind: 'upcoming', days: 7 })).toBe('Due in 1 week');
-    expect(formatDueInfo({ kind: 'completed', days: 0 })).toBe('Completed today');
+  it('describes due dates as translation keys', () => {
+    expect(getDueLabel({ kind: 'overdue', days: 2 })).toEqual({
+      key: 'task.due.overdueDays',
+      count: 2,
+    });
+    expect(getDueLabel({ kind: 'upcoming', days: 7 })).toEqual({
+      key: 'task.due.inWeeks',
+      count: 1,
+    });
+    expect(getDueLabel({ kind: 'upcoming', days: 1 })).toEqual({ key: 'task.due.tomorrow' });
+    expect(getDueLabel({ kind: 'completed', days: 0 })).toEqual({ key: 'task.due.completedToday' });
   });
 
   it('sorts by order', () => {

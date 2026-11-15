@@ -1,11 +1,20 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { makeActivity } from '../../core/testing/activity.factory';
 import { ActivityListComponent } from './activity-list.component';
 import { Activity } from '../../core/models/activity.model';
 
 describe('ActivityListComponent', () => {
+  let fixture: ComponentFixture<ActivityListComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ActivityListComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(ActivityListComponent);
+  });
+
   function render(activities: Activity[]) {
-    const fixture = TestBed.createComponent(ActivityListComponent);
     fixture.componentRef.setInput('activities', activities);
     fixture.detectChanges();
     return fixture.nativeElement as HTMLElement;

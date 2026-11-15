@@ -3,7 +3,6 @@ import { TestBed } from '@angular/core/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, throwError } from 'rxjs';
 import { makeTask } from '../../../core/utils/task.utils.spec';
-import { provideZonelessChangeDetection } from '@angular/core';
 import { TasksService } from '../tasks.service';
 import { TaskMoveService } from './task-move.service';
 
@@ -19,7 +18,6 @@ describe('TaskMoveService', () => {
     const open = vi.fn();
     TestBed.configureTestingModule({
       providers: [
-        provideZonelessChangeDetection(),
         { provide: TasksService, useValue: tasks },
         { provide: LiveAnnouncer, useValue: { announce } },
         { provide: MatSnackBar, useValue: { open } },

@@ -1,4 +1,6 @@
 <div class="error" role="alert">
   <p>{{ message() }}</p>
-  <button mat-stroked-button type="button" (click)="retry.emit()">Retry</button>
+  <button mat-stroked-button type="button" (click)="retry.emit()">
+    {{ 'common.retry' | translate }}
+  </button>
 </div>

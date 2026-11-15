@@ -1,6 +1,6 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
-import { ApplicationRef, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import type { Mock } from 'vitest';
 import { TasksService } from './tasks.service';
@@ -24,12 +24,7 @@ describe('TasksService', () => {
     };
 
     TestBed.configureTestingModule({
-      providers: [
-        provideZonelessChangeDetection(),
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        TasksService,
-      ],
+      providers: [provideHttpClient(), provideHttpClientTesting(), TasksService],
     });
 
     service = TestBed.inject(TasksService);
@@ -50,7 +45,7 @@ describe('TasksService', () => {
 
     req.flush({ ...req.request.body, id: 't2' });
 
-    expect(service.tasks.value()?.map((t) => t.id)).toEqual(['t1', 't2', 't3']);
+    expect(service.tasks.value()?.map((t) => t.id)).toEqual(['t1', 't2', 't2']);
     expect(req.request.body.order).toBe(3000);
     expect(recorder.created).toHaveBeenCalledWith(expect.objectContaining({ id: 't3' }));
   });

@@ -1,0 +1,198 @@
+{
+  "app": {
+    "name": "مدير المهام",
+    "skipToContent": "انتقل إلى المحتوى",
+    "language": { "switchTo": "التبديل إلى {{language}}" }
+  },
+  "nav": {
+    "main": "التنقل الرئيسي",
+    "dashboard": "لوحة التحكم",
+    "tasks": "المهام",
+    "calendar": "التقويم",
+    "analytics": "التحليلات",
+    "team": "الفريق",
+    "settings": "الإعدادات"
+  },
+  "header": {
+    "toggleNavigation": "تبديل قائمة التنقل",
+    "searchPlaceholder": "ابحث في المهام...",
+    "searchLabel": "البحث في المهام",
+    "notifications": "الإشعارات",
+    "signedInAs": "تم تسجيل الدخول باسم {{name}}"
+  },
+  "common": {
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "retry": "إعادة المحاولة",
+    "dismiss": "إغلاق",
+    "newTask": "+ مهمة جديدة",
+    "listSeparator": "، "
+  },
+  "status": { "todo": "قيد الانتظار", "in_progress": "قيد التنفيذ", "done": "مكتملة" },
+  "priority": { "high": "عالية", "medium": "متوسطة", "low": "منخفضة" },
+  "dashboard": {
+    "stats": {
+      "label": "إحصائيات المهام",
+      "error": "تعذّر تحميل الإحصائيات.",
+      "titles": {
+        "stat-001": "إجمالي المهام",
+        "stat-002": "المكتملة",
+        "stat-003": "قيد التنفيذ",
+        "stat-004": "المتأخرة"
+      },
+      "changeLabels": {
+        "this_week": "هذا الأسبوع",
+        "today": "اليوم",
+        "same_as_yesterday": "مثل الأمس"
+      }
+    },
+    "board": {
+      "label": "لوحة المهام",
+      "error": "تعذّر تحميل المهام.",
+      "empty": "لا توجد مهام",
+      "taskCount": {
+        "zero": "لا مهام",
+        "one": "مهمة واحدة",
+        "two": "مهمتان",
+        "few": "{{count}} مهام",
+        "many": "{{count}} مهمة",
+        "other": "{{count}} مهمة"
+      }
+    },
+    "filters": {
+      "label": "تصفية المهام",
+      "byStatus": "التصفية حسب الحالة",
+      "all": "الكل",
+      "clear": "مسح عوامل التصفية",
+      "priority": "الأولوية",
+      "assignee": "المسؤول",
+      "allPriorities": "كل الأولويات",
+      "allAssignees": "كل المسؤولين"
+    }
+  },
+  "task": {
+    "actions": "إجراءات المهمة: {{title}}",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "moveTo": "نقل إلى {{status}}",
+    "due": {
+      "today": "موعدها اليوم",
+      "tomorrow": "موعدها غدًا",
+      "inDays": {
+        "one": "موعدها بعد يوم واحد",
+        "two": "موعدها بعد يومين",
+        "few": "موعدها بعد {{count}} أيام",
+        "many": "موعدها بعد {{count}} يومًا",
+        "other": "موعدها بعد {{count}} يوم"
+      },
+      "inWeeks": {
+        "one": "موعدها بعد أسبوع واحد",
+        "two": "موعدها بعد أسبوعين",
+        "few": "موعدها بعد {{count}} أسابيع",
+        "many": "موعدها بعد {{count}} أسبوعًا",
+        "other": "موعدها بعد {{count}} أسبوع"
+      },
+      "overdueDays": {
+        "one": "متأخرة بيوم واحد",
+        "two": "متأخرة بيومين",
+        "few": "متأخرة بـ{{count}} أيام",
+        "many": "متأخرة بـ{{count}} يومًا",
+        "other": "متأخرة بـ{{count}} يوم"
+      },
+      "completedToday": "اكتملت اليوم",
+      "completedYesterday": "اكتملت أمس",
+      "completedDaysAgo": {
+        "one": "اكتملت قبل يوم واحد",
+        "two": "اكتملت قبل يومين",
+        "few": "اكتملت قبل {{count}} أيام",
+        "many": "اكتملت قبل {{count}} يومًا",
+        "other": "اكتملت قبل {{count}} يوم"
+      }
+    }
+  },
+  "form": {
+    "titleNew": "مهمة جديدة",
+    "titleEdit": "تعديل المهمة",
+    "fields": {
+      "title": "العنوان",
+      "description": "الوصف",
+      "status": "الحالة",
+      "priority": "الأولوية",
+      "dueDate": "تاريخ الاستحقاق",
+      "assignee": "المسؤول",
+      "tags": "الوسوم",
+      "tag": "الوسم {{n}}",
+      "removeTag": "إزالة الوسم {{n}}",
+      "addTag": "إضافة وسم"
+    },
+    "actions": { "create": "إنشاء المهمة", "save": "حفظ التغييرات", "saving": "جارٍ الحفظ…" },
+    "submitError": "تعذّر حفظ المهمة. تحقق من اتصالك وحاول مرة أخرى.",
+    "created": "تم إنشاء المهمة",
+    "updated": "تم تحديث المهمة",
+    "errors": {
+      "title": {
+        "required": "العنوان مطلوب",
+        "blank": "لا يمكن أن يتكوّن العنوان من مسافات فقط",
+        "maxlength": "يجب ألا يتجاوز العنوان {{max}} حرفًا"
+      },
+      "description": { "maxlength": "يجب ألا يتجاوز الوصف {{max}} حرفًا" },
+      "dueDate": {
+        "required": "تاريخ الاستحقاق مطلوب",
+        "pastDate": "لا يمكن أن يكون تاريخ الاستحقاق في الماضي",
+        "matDatepickerParse": "أدخل تاريخًا صالحًا"
+      },
+      "assigneeId": { "required": "اختر مسؤولًا" },
+      "tag": {
+        "required": "أدخل وسمًا أو احذف هذا الصف",
+        "blank": "لا يمكن أن يتكوّن الوسم من مسافات فقط",
+        "maxlength": "يجب ألا يتجاوز الوسم {{max}} حرفًا"
+      },
+      "tags": {
+        "maxItems": "استخدم {{max}} وسوم كحد أقصى",
+        "duplicate": "يجب أن تكون الوسوم فريدة"
+      }
+    }
+  },
+  "delete": {
+    "title": "حذف المهمة؟",
+    "message": "سيتم حذف المهمة «{{title}}» نهائيًا. لا يمكن التراجع عن هذا الإجراء.",
+    "confirm": "حذف",
+    "done": "تم حذف المهمة",
+    "failed": "تعذّر حذف المهمة. تمت استعادتها."
+  },
+  "move": {
+    "failed": "تعذّر نقل المهمة. تمت إعادتها إلى مكانها.",
+    "announce": "تم نقل {{title}} إلى {{status}}"
+  },
+  "analytics": {
+    "title": "التحليلات",
+    "byPriority": "المهام حسب الأولوية",
+    "byStatus": "المهام حسب الحالة",
+    "error": "تعذّر تحميل تحليلات المهام.",
+    "empty": "لا توجد مهام لتحليلها بعد.",
+    "datasetLabel": "المهام"
+  },
+  "team": {
+    "title": "الفريق",
+    "members": "الأعضاء",
+    "recentActivity": "آخر النشاطات",
+    "membersError": "تعذّر تحميل الفريق.",
+    "activityError": "تعذّر تحميل آخر النشاطات.",
+    "noMembers": "لا يوجد أعضاء في الفريق بعد.",
+    "member": {
+      "open": "{{count}} مفتوحة",
+      "done": "{{count}} مكتملة",
+      "overdue": "{{count}} متأخرة",
+      "viewTasks": "عرض المهام",
+      "viewTasksFor": "عرض المهام المسندة إلى {{name}}"
+    }
+  },
+  "activity": {
+    "empty": "لا يوجد نشاط بعد.",
+    "created": "أنشأ المهمة «{{task}}»",
+    "updated": "عدّل المهمة «{{task}}»",
+    "moved": "نقل المهمة «{{task}}» إلى {{status}}",
+    "completed": "أكمل المهمة «{{task}}»",
+    "deleted": "حذف المهمة «{{task}}»"
+  }
+}

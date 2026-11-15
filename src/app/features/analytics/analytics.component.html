@@ -1,4 +1,4 @@
-<h1>Analytics</h1>
+<h1>{{ 'analytics.title' | translate }}</h1>
 
 @if (tasksResource.isLoading()) {
   <div class="grid">
@@ -6,18 +6,18 @@
     <div class="skeleton" aria-hidden="true"></div>
   </div>
 } @else if (tasksResource.error()) {
-  <app-error-state message="Couldn't load task analytics." (retry)="tasksResource.reload()" />
+  <app-error-state [message]="'analytics.error' | translate" (retry)="tasksResource.reload()" />
 } @else if (tasks().length === 0) {
-  <p class="empty">There are no tasks to analyze yet.</p>
+  <p class="empty">{{ 'analytics.empty' | translate }}</p>
 } @else {
   <div class="grid">
     <app-chart-card
-      title="Tasks by priority"
+      [title]="'analytics.byPriority' | translate"
       [config]="priorityConfig()"
       [slices]="prioritySlicesList()"
     />
     <app-chart-card
-      title="Tasks by status"
+      [title]="'analytics.byStatus' | translate"
       [config]="statusConfig()"
       [slices]="statusSlicesList()"
     />

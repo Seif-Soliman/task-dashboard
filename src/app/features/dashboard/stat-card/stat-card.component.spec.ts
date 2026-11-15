@@ -1,13 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { StatCard } from './stat-card.component';
 import { Statistic } from '../../../core/models/statistic.model';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('StatCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [StatCard],
-      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
   });
 

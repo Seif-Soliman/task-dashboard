@@ -8,19 +8,19 @@ export const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
       {
         path: 'dashboard',
-        title: 'Dashboard',
+        title: 'nav.dashboard',
         loadComponent: () =>
           import('./features/dashboard/dashboard.component').then((m) => m.Dashboard),
       },
       {
         path: 'analytics',
-        title: 'Analytics',
+        title: 'nav.analytics',
         loadComponent: () =>
           import('./features/analytics/analytics.component').then((m) => m.AnalyticsComponent),
       },
       {
         path: 'team',
-        title: 'Team',
+        title: 'nav.team',
         loadComponent: () => import('./features/team/team.component').then((m) => m.TeamComponent),
       },
     ],

@@ -3,9 +3,8 @@
   <p>{{ data.message }}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <!-- Cancel is focused first: pressing Enter right after opening must never confirm. -->
   <button mat-button type="button" cdkFocusInitial [mat-dialog-close]="false">
-    {{ data.cancelLabel ?? 'Cancel' }}
+    {{ data.cancelLabel ?? ('common.cancel' | translate) }}
   </button>
   <button
     mat-flat-button
@@ -13,6 +12,6 @@
     [class.destructive]="data.destructive"
     [mat-dialog-close]="true"
   >
-    {{ data.confirmLabel ?? 'Confirm' }}
+    {{ data.confirmLabel ?? ('common.confirm' | translate) }}
   </button>
 </mat-dialog-actions>

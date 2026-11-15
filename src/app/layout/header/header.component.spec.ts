@@ -1,14 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { HeaderComponent } from './header.component';
-import { provideZonelessChangeDetection } from '@angular/core';
 import { makeTask } from '../../core/testing/task.factory';
 
 describe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HeaderComponent],
-      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
   });
 

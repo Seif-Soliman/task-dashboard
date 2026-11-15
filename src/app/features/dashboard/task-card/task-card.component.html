@@ -1,21 +1,21 @@
 <article class="card" [class.overdue]="due().kind === 'overdue'">
   <header class="top">
-    <span [class]="'priority ' + task().priority">{{ task().priority }}</span>
+    <span [class]="'priority ' + task().priority">{{ priorityLabel() }}</span>
     <button
       mat-icon-button
       [matMenuTriggerFor]="menu"
-      [attr.aria-label]="'Actions for ' + task().title"
+      [attr.aria-label]="'task.actions' | translate: { title: task().title }"
     >
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="edit.emit(task())">Edit</button>
+      <button mat-menu-item (click)="edit.emit(task())">{{ 'task.edit' | translate }}</button>
       @for (target of moveTargets(); track target.status) {
         <button mat-menu-item (click)="moveTo.emit(target.status)">
-          Move to {{ target.label }}
+          {{ 'task.moveTo' | translate: { status: target.label } }}
         </button>
       }
-      <button mat-menu-item (click)="remove.emit(task())">Delete</button>
+      <button mat-menu-item (click)="remove.emit(task())">{{ 'task.delete' | translate }}</button>
     </mat-menu>
   </header>
 
@@ -35,6 +35,6 @@
 
   <footer>
     <span class="avatar" aria-hidden="true">{{ task().assignee.avatar }}</span>
-    <span>&#64;{{ firstName() }}</span>
+    <span dir="auto">&#64;{{ firstName() }}</span>
   </footer>
 </article>

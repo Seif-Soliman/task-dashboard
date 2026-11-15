@@ -1,13 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { SidebarComponent } from './sidebar.component';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('SidebarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SidebarComponent],
-      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
   });
   it('renders every nav link and emits newTask', () => {

@@ -4,17 +4,19 @@
     <h3>{{ member().user.name }}</h3>
     <a class="email" [href]="'mailto:' + member().user.email">{{ member().user.email }}</a>
     <ul class="stats">
-      <li>{{ member().open }} open</li>
-      <li>{{ member().done }} done</li>
-      <li [class.alert]="member().overdue > 0">{{ member().overdue }} overdue</li>
+      <li>{{ 'team.member.open' | translate: { count: member().open } }}</li>
+      <li>{{ 'team.member.done' | translate: { count: member().done } }}</li>
+      <li [class.alert]="member().overdue > 0">
+        {{ 'team.member.overdue' | translate: { count: member().overdue } }}
+      </li>
     </ul>
   </div>
   <a
     mat-stroked-button
     routerLink="/dashboard"
     [queryParams]="{ assignee: member().user.id }"
-    [attr.aria-label]="'View tasks assigned to ' + member().user.name"
+    [attr.aria-label]="'team.member.viewTasksFor' | translate: { name: member().user.name }"
   >
-    View tasks
+    {{ 'team.member.viewTasks' | translate }}
   </a>
 </article>

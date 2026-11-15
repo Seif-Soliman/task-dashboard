@@ -5,7 +5,6 @@ import { of, throwError } from 'rxjs';
 import { makeTask } from '../../../core/utils/task.utils.spec';
 import { TasksService } from '../tasks.service';
 import { ConfirmService } from '../../shared/confirm-dialog/confirm.service';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('TaskDeleteService', () => {
   const task = makeTask();
@@ -24,7 +23,6 @@ describe('TaskDeleteService', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        provideZonelessChangeDetection(),
         { provide: ConfirmService, useValue: { ask } },
         { provide: TasksService, useValue: { remove } },
         { provide: MatSnackBar, useValue: { open } },

@@ -8,6 +8,7 @@ import {
 } from './task-analytics';
 
 describe('task analytics', () => {
+  const t = (key: string) => key;
   const tasks = [
     makeTask({ id: '1', status: 'todo', priority: 'high' }),
     makeTask({ id: '2', status: 'todo', priority: 'low' }),
@@ -23,16 +24,16 @@ describe('task analytics', () => {
   });
 
   it('builds labelled slices in board order', () => {
-    expect(statusSlices(tasks).map((s) => [s.label, s.value])).toEqual([
-      ['To Do', 2],
-      ['In Progress', 0],
-      ['Done', 1],
+    expect(statusSlices(tasks, t).map((s) => [s.label, s.value])).toEqual([
+      ['status.todo', 2],
+      ['status.in_progress', 0],
+      ['status.done', 1],
     ]);
   });
 
   it('converts slices to chart data', () => {
-    const data = toChartData(prioritySlices(tasks), 'Tasks');
-    expect(data.labels).toEqual(['High', 'Medium', 'Low']);
+    const data = toChartData(prioritySlices(tasks, t), 'Tasks');
+    expect(data.labels).toEqual(['priority.high', 'priority.medium', 'priority.low']);
     expect(data.datasets[0].data).toEqual([2, 0, 1]);
     expect(data.datasets[0].backgroundColor).toEqual(['#d32f2f', '#ef6c00', '#388e3c']);
   });

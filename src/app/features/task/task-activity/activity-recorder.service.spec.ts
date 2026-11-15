@@ -3,7 +3,6 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { TestBed } from '@angular/core/testing';
 import { ActivityRecorder } from './activity-recorder.service';
 import { makeTask } from '../../../core/utils/task.utils.spec';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('ActivityRecorder', () => {
   let recorder: ActivityRecorder;
@@ -12,11 +11,7 @@ describe('ActivityRecorder', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-        provideZonelessChangeDetection(),
-      ],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     });
     recorder = TestBed.inject(ActivityRecorder);
     http = TestBed.inject(HttpTestingController);

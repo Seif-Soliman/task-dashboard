@@ -1,25 +1,22 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { Activity, ActivityType } from '../../core/models/activity.model';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { Activity } from '../../core/models/activity.model';
 import { formatRelativeTime } from '../../core/utils/relative-time';
-import { STATUS_LABELS } from '../task-filter/model/task-options';
+import { STATUS_KEYS } from '../task-filter/model/task-options';
 import { DatePipe } from '@angular/common';
-
-const VERBS: Record<ActivityType, string> = {
-  created: 'created',
-  updated: 'updated',
-  moved: 'moved',
-  completed: 'completed',
-  deleted: 'deleted',
-};
+import { injectT } from '../../core/i18n/inject-t';
+import { LanguageService } from '../../core/i18n/language.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-activity-list',
-  imports: [DatePipe],
+  imports: [DatePipe, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './activity-list.component.html',
   styleUrl: './activity-list.component.scss',
 })
 export class ActivityListComponent {
+  private readonly t = injectT();
+  private readonly lang = inject(LanguageService).lang();
   readonly activities = input.required<readonly Activity[]>();
 
   private readonly now = new Date();
@@ -27,9 +24,11 @@ export class ActivityListComponent {
   protected readonly rows = computed(() =>
     this.activities().map((activity) => ({
       ...activity,
-      verb: VERBS[activity.type],
-      target: activity.to ? STATUS_LABELS[activity.to] : null,
-      when: formatRelativeTime(activity.createdAt, this.now),
+      message: this.t(`activity.${activity.type}`, {
+        task: activity.taskTitle,
+        status: activity.to ? this.t(STATUS_KEYS[activity.to]) : '',
+      }),
+      when: formatRelativeTime(activity.createdAt, this.now, this.lang),
     })),
   );
 }

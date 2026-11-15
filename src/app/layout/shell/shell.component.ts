@@ -8,12 +8,14 @@ import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { TaskFormDialogService } from '../../features/task/task-form-dialog/task-form-dialog.service';
 import { CurrentUserService } from '../../core/auth/current-user.service';
+import { LanguageService } from '../../core/i18n/language.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 const COMPACT_QUERY = '(max-width: 959.98px)';
 
 @Component({
   selector: 'app-shell',
-  imports: [RouterOutlet, MatSidenavModule, HeaderComponent, SidebarComponent],
+  imports: [RouterOutlet, MatSidenavModule, HeaderComponent, SidebarComponent, TranslatePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './shell.component.html',
   styleUrl: './shell.component.scss',
@@ -24,6 +26,8 @@ export class ShellComponent {
   private readonly breakpoints = inject(BreakpointObserver);
   private readonly taskDialog = inject(TaskFormDialogService);
   protected readonly user = inject(CurrentUserService).user;
+  protected readonly languageService = inject(LanguageService);
+  protected readonly language = this.languageService.lang;
 
   protected onNewTask(): void {
     this.menuOpen.set(false);

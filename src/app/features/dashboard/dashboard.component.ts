@@ -8,7 +8,7 @@ import { FilterBarComponent } from '../filter-bar/filter-bar.component';
 import { TaskFiltersService } from '../task-filter/task-filters.service';
 import { filterTasks } from '../task-filter/model/task-filters';
 import { UsersService } from './users.service';
-import { STATUS_LABELS, TASK_STATUSES } from '../task-filter/model/task-options';
+import { STATUS_KEYS, TASK_STATUSES } from '../task-filter/model/task-options';
 import { TaskFormDialogService } from '../task/task-form-dialog/task-form-dialog.service';
 import { TaskDeleteService } from '../task/task-delete/task-delete.service';
 import { CdkDropListGroup } from '@angular/cdk/drag-drop';
@@ -16,6 +16,8 @@ import { CdkScrollable } from '@angular/cdk/scrolling';
 import { TaskDrop } from './board-column/model/board-column.model';
 import { TaskMoveService } from '../task/task-move/task-move.service';
 import { ErrorStateComponent } from '../shared/error-state/error-state.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { injectT } from '../../core/i18n/inject-t';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +29,7 @@ import { ErrorStateComponent } from '../shared/error-state/error-state.component
     CdkDropListGroup,
     CdkScrollable,
     ErrorStateComponent,
+    TranslatePipe,
   ],
   providers: [TaskFiltersService],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,6 +44,7 @@ export class Dashboard {
   protected readonly taskDialog = inject(TaskFormDialogService);
   protected readonly taskDelete = inject(TaskDeleteService);
   protected readonly taskMove = inject(TaskMoveService);
+  private readonly t = injectT();
 
   protected readonly statsSkeletons = [1, 2, 3, 4];
   protected readonly boardSkeletons = [1, 2, 3];
@@ -59,7 +63,7 @@ export class Dashboard {
 
     return statuses.map((status) => ({
       status,
-      title: STATUS_LABELS[status],
+      title: this.t(STATUS_KEYS[status]),
       tasks: tasks.filter((task) => task.status === status),
     }));
   });

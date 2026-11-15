@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { BoardColumnComponent } from './board-column.component';
-import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('BoardColumnComponent', () => {
   let fixture: ComponentFixture<BoardColumnComponent>;
@@ -9,7 +7,6 @@ describe('BoardColumnComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BoardColumnComponent],
-      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BoardColumnComponent);

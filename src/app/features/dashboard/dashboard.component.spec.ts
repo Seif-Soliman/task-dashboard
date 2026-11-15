@@ -1,4 +1,3 @@
-import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { makeTask } from '../../core/utils/task.utils.spec';
 import { StatisticsService } from './stat-card/statistics.service';
@@ -10,6 +9,7 @@ import { By } from '@angular/platform-browser';
 import { TaskDeleteService } from '../task/task-delete/task-delete.service';
 import { BoardColumnComponent } from './board-column/board-column.component';
 import { UsersService } from './users.service';
+import { signal } from '@angular/core';
 
 const resourceStub = <T>(value: T) => ({
   value: signal(value),
@@ -23,7 +23,7 @@ describe('DashboardPage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Dashboard],
-      providers: [provideRouter([]), provideHttpClient(), provideZonelessChangeDetection()],
+      providers: [provideRouter([]), provideHttpClient()],
     }).compileComponents();
   });
 

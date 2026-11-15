@@ -1,0 +1,167 @@
+{
+  "app": {
+    "name": "Task Manager",
+    "skipToContent": "Skip to content",
+    "language": { "switchTo": "Switch language to {{language}}" }
+  },
+  "nav": {
+    "main": "Main",
+    "dashboard": "Dashboard",
+    "tasks": "Tasks",
+    "calendar": "Calendar",
+    "analytics": "Analytics",
+    "team": "Team",
+    "settings": "Settings"
+  },
+  "header": {
+    "toggleNavigation": "Toggle navigation",
+    "searchPlaceholder": "Search tasks...",
+    "searchLabel": "Search tasks",
+    "notifications": "Notifications",
+    "signedInAs": "Signed in as {{name}}"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "retry": "Retry",
+    "dismiss": "Dismiss",
+    "newTask": "+ New Task",
+    "listSeparator": ", "
+  },
+  "status": { "todo": "To Do", "in_progress": "In Progress", "done": "Done" },
+  "priority": { "high": "High", "medium": "Medium", "low": "Low" },
+  "dashboard": {
+    "stats": {
+      "label": "Task statistics",
+      "error": "Couldn't load statistics.",
+      "titles": {
+        "stat-001": "Total Tasks",
+        "stat-002": "Completed",
+        "stat-003": "In Progress",
+        "stat-004": "Overdue"
+      },
+      "changeLabels": {
+        "this_week": "this week",
+        "today": "today",
+        "same_as_yesterday": "Same as yesterday"
+      }
+    },
+    "board": {
+      "label": "Task board",
+      "error": "Couldn't load tasks.",
+      "empty": "No tasks",
+      "taskCount": { "one": "{{count}} task", "other": "{{count}} tasks" }
+    },
+    "filters": {
+      "label": "Task filters",
+      "byStatus": "Filter by status",
+      "all": "All",
+      "clear": "Clear filters",
+      "priority": "Priority",
+      "assignee": "Assignee",
+      "allPriorities": "All priorities",
+      "allAssignees": "All assignees"
+    }
+  },
+  "task": {
+    "actions": "Actions for {{title}}",
+    "edit": "Edit",
+    "delete": "Delete",
+    "moveTo": "Move to {{status}}",
+    "due": {
+      "today": "Due today",
+      "tomorrow": "Due tomorrow",
+      "inDays": { "one": "Due in {{count}} day", "other": "Due in {{count}} days" },
+      "inWeeks": { "one": "Due in {{count}} week", "other": "Due in {{count}} weeks" },
+      "overdueDays": { "one": "Overdue by {{count}} day", "other": "Overdue by {{count}} days" },
+      "completedToday": "Completed today",
+      "completedYesterday": "Completed yesterday",
+      "completedDaysAgo": {
+        "one": "Completed {{count}} day ago",
+        "other": "Completed {{count}} days ago"
+      }
+    }
+  },
+  "form": {
+    "titleNew": "New task",
+    "titleEdit": "Edit task",
+    "fields": {
+      "title": "Title",
+      "description": "Description",
+      "status": "Status",
+      "priority": "Priority",
+      "dueDate": "Due date",
+      "assignee": "Assignee",
+      "tags": "Tags",
+      "tag": "Tag {{n}}",
+      "removeTag": "Remove tag {{n}}",
+      "addTag": "Add tag"
+    },
+    "actions": { "create": "Create task", "save": "Save changes", "saving": "Saving…" },
+    "submitError": "We couldn't save the task. Check your connection and try again.",
+    "created": "Task created",
+    "updated": "Task updated",
+    "errors": {
+      "title": {
+        "required": "Title is required",
+        "blank": "Title can’t be only spaces",
+        "maxlength": "Title must be {{max}} characters or fewer"
+      },
+      "description": { "maxlength": "Description must be {{max}} characters or fewer" },
+      "dueDate": {
+        "required": "Due date is required",
+        "pastDate": "Due date can’t be in the past",
+        "matDatepickerParse": "Enter a valid date"
+      },
+      "assigneeId": { "required": "Select an assignee" },
+      "tag": {
+        "required": "Enter a tag or remove this row",
+        "blank": "Tag can’t be only spaces",
+        "maxlength": "Tags must be {{max}} characters or fewer"
+      },
+      "tags": { "maxItems": "Use at most {{max}} tags", "duplicate": "Tags must be unique" }
+    }
+  },
+  "delete": {
+    "title": "Delete task?",
+    "message": "“{{title}}” will be permanently deleted. This can’t be undone.",
+    "confirm": "Delete",
+    "done": "Task deleted",
+    "failed": "Couldn’t delete the task. It was restored."
+  },
+  "move": {
+    "failed": "Couldn’t move the task. It was put back.",
+    "announce": "Moved {{title}} to {{status}}"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "byPriority": "Tasks by priority",
+    "byStatus": "Tasks by status",
+    "error": "Couldn't load task analytics.",
+    "empty": "There are no tasks to analyze yet.",
+    "datasetLabel": "Tasks"
+  },
+  "team": {
+    "title": "Team",
+    "members": "Members",
+    "recentActivity": "Recent activity",
+    "membersError": "Couldn't load the team.",
+    "activityError": "Couldn't load recent activity.",
+    "noMembers": "No team members yet.",
+    "member": {
+      "open": "{{count}} open",
+      "done": "{{count}} done",
+      "overdue": "{{count}} overdue",
+      "viewTasks": "View tasks",
+      "viewTasksFor": "View tasks assigned to {{name}}"
+    }
+  },
+  "activity": {
+    "empty": "No activity yet.",
+    "created": "created “{{task}}”",
+    "updated": "updated “{{task}}”",
+    "moved": "moved “{{task}}” to {{status}}",
+    "completed": "completed “{{task}}”",
+    "deleted": "deleted “{{task}}”"
+  }
+}

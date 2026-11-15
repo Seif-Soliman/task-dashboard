@@ -1,5 +1,4 @@
-import { signal } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { makeActivity } from '../../core/testing/activity.factory';
 import { makeTask } from '../../core/utils/task.utils.spec';
@@ -7,6 +6,7 @@ import { UsersService } from '../dashboard/users.service';
 import { TasksService } from '../task/tasks.service';
 import { TeamComponent } from './team.component';
 import { ActivityFeedService } from './activity-feed.service';
+import { signal } from '@angular/core';
 
 const resourceOf = <T>(value: T, overrides: Record<string, unknown> = {}) => ({
   value: signal(value),
@@ -17,11 +17,53 @@ const resourceOf = <T>(value: T, overrides: Record<string, unknown> = {}) => ({
   ...overrides,
 });
 
+type ResourceType<T> = ReturnType<typeof resourceOf<T>>;
+
 describe('TeamComponent', () => {
   const u1 = makeTask().assignee;
   const u2 = { id: 'u2', name: 'Sarah Smith', avatar: 'SS', email: 's@company.com' };
 
-  function render(options: { users?: object; tasks?: object; feed?: object } = {}) {
+  let fixture: ComponentFixture<TeamComponent>;
+  let usersServiceMock: { users: ResourceType<(typeof u1)[]> };
+  let tasksServiceMock: { tasks: ResourceType<ReturnType<typeof makeTask>[]> };
+  let activityFeedServiceMock: { activities: ResourceType<ReturnType<typeof makeActivity>[]> };
+
+  beforeEach(async () => {
+    usersServiceMock = { users: resourceOf([u1, u2]) };
+    tasksServiceMock = {
+      tasks: resourceOf([
+        makeTask({ id: '1', status: 'todo' }),
+        makeTask({ id: '2', status: 'in_progress' }),
+        makeTask({ id: '3', status: 'done' }),
+      ]),
+    };
+    activityFeedServiceMock = {
+      activities: resourceOf([makeActivity({ taskTitle: 'Fix bug' })]),
+    };
+
+    await TestBed.configureTestingModule({
+      imports: [TeamComponent],
+      providers: [
+        provideRouter([]),
+        { provide: UsersService, useValue: usersServiceMock },
+        { provide: TasksService, useValue: tasksServiceMock },
+      ],
+    }).compileComponents();
+
+    TestBed.overrideComponent(TeamComponent, {
+      set: { providers: [{ provide: ActivityFeedService, useValue: activityFeedServiceMock }] },
+    });
+
+    fixture = TestBed.createComponent(TeamComponent);
+  });
+
+  function render(
+    options: {
+      users?: ResourceType<unknown>;
+      tasks?: ResourceType<unknown>;
+      feed?: ResourceType<unknown>;
+    } = {},
+  ) {
     const users = options.users ?? resourceOf([u1, u2]);
     const tasks =
       options.tasks ??
@@ -32,18 +74,10 @@ describe('TeamComponent', () => {
       ]);
     const feed = options.feed ?? resourceOf([makeActivity({ taskTitle: 'Fix bug' })]);
 
-    TestBed.configureTestingModule({
-      providers: [
-        provideRouter([]),
-        { provide: UsersService, useValue: { users } },
-        { provide: TasksService, useValue: { tasks } },
-      ],
-    });
-    TestBed.overrideComponent(TeamComponent, {
-      set: { providers: [{ provide: ActivityFeedService, useValue: { activities: feed } }] },
-    });
+    usersServiceMock.users = users as ResourceType<(typeof u1)[]>;
+    tasksServiceMock.tasks = tasks as ResourceType<ReturnType<typeof makeTask>[]>;
+    activityFeedServiceMock.activities = feed as ResourceType<ReturnType<typeof makeActivity>[]>;
 
-    const fixture = TestBed.createComponent(TeamComponent);
     fixture.detectChanges();
     return { el: fixture.nativeElement as HTMLElement, users, tasks, feed };
   }

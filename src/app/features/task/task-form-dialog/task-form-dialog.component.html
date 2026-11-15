@@ -1,31 +1,35 @@
-<h2 mat-dialog-title>{{ isEdit ? 'Edit task' : 'New task' }}</h2>
+<h2 mat-dialog-title>{{ (isEdit ? 'form.titleEdit' : 'form.titleNew') | translate }}</h2>
 
 <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
   <mat-dialog-content>
     @if (submitError()) {
       <p class="submit-error" role="alert">
-        We couldn't save the task. Check your connection and try again.
+        {{ 'form.submitError' | translate }}
       </p>
     }
 
     <mat-form-field appearance="outline">
-      <mat-label>Title</mat-label>
+      <mat-label>{{ 'form.fields.title' | translate }}</mat-label>
       <input matInput formControlName="title" autocomplete="off" />
-      <mat-error>{{ messageFor(form.controls.title, messages.title) }}</mat-error>
+      <mat-error>{{
+        error(form.controls.title, 'form.errors.title', { max: titleMax })
+      }}</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>Description</mat-label>
+      <mat-label>{{ 'form.fields.description' | translate }}</mat-label>
       <textarea matInput rows="3" formControlName="description"></textarea>
       <mat-hint align="end"
         >{{ form.controls.description.value.length }}/{{ descriptionMax }}</mat-hint
       >
-      <mat-error>{{ messageFor(form.controls.description, messages.description) }}</mat-error>
+      <mat-error>{{
+        error(form.controls.description, 'form.errors.description', { max: descriptionMax })
+      }}</mat-error>
     </mat-form-field>
 
     <div class="row">
       <mat-form-field appearance="outline">
-        <mat-label>Status</mat-label>
+        <mat-label>{{ 'form.fields.status' | translate }}</mat-label>
         <mat-select formControlName="status">
           @for (option of statusOptions; track option.value) {
             <mat-option [value]="option.value">{{ option.label }}</mat-option>
@@ -34,7 +38,7 @@
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Priority</mat-label>
+        <mat-label>{{ 'form.fields.priority' | translate }}</mat-label>
         <mat-select formControlName="priority">
           @for (option of priorityOptions; track option.value) {
             <mat-option [value]="option.value">{{ option.label }}</mat-option>
@@ -45,44 +49,46 @@
 
     <div class="row">
       <mat-form-field appearance="outline">
-        <mat-label>Due date</mat-label>
+        <mat-label>{{ 'form.fields.dueDate' | translate }}</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="dueDate" />
         <mat-datepicker-toggle matIconSuffix [for]="picker" />
         <mat-datepicker #picker />
-        <mat-error>{{ messageFor(form.controls.dueDate, messages.dueDate) }}</mat-error>
+        <mat-error>{{ error(form.controls.dueDate, 'form.errors.dueDate') }}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Assignee</mat-label>
+        <mat-label>{{ 'form.fields.assignee' | translate }}</mat-label>
         <mat-select formControlName="assigneeId">
           @for (user of assignees(); track user.id) {
             <mat-option [value]="user.id">{{ user.name }}</mat-option>
           }
         </mat-select>
-        <mat-error>{{ messageFor(form.controls.assigneeId, messages.assigneeId) }}</mat-error>
+        <mat-error>{{ error(form.controls.assigneeId, 'form.errors.assigneeId') }}</mat-error>
       </mat-form-field>
     </div>
 
     <fieldset class="tags" formArrayName="tags">
-      <legend>Tags</legend>
+      <legend>{{ 'form.fields.tags' | translate }}</legend>
       @for (control of tags.controls; track control; let i = $index) {
         <mat-form-field appearance="outline">
-          <mat-label>Tag {{ i + 1 }}</mat-label>
+          <mat-label>{{ 'form.fields.tag' | translate: { n: i + 1 } }}</mat-label>
           <input #tagInput matInput [formControlName]="i" autocomplete="off" />
           <button
             mat-icon-button
             matSuffix
             type="button"
-            [attr.aria-label]="'Remove tag ' + (i + 1)"
+            [attr.aria-label]="'form.fields.removeTag' | translate: { n: i + 1 }"
             (click)="removeTag(i)"
           >
             <mat-icon>close</mat-icon>
           </button>
-          <mat-error>{{ messageFor(control, messages.tag) }}</mat-error>
+          <mat-error>{{ error(control, 'form.errors.tag', { max: tagMax }) }}</mat-error>
         </mat-form-field>
       }
       @if (tags.touched && tags.errors) {
-        <p class="field-error" role="alert">{{ messageFor(tags, messages.tags) }}</p>
+        <p class="field-error" role="alert">
+          {{ error(tags, 'form.errors.tags', { max: maxTags }) }}
+        </p>
       }
       <button
         mat-stroked-button
@@ -90,13 +96,15 @@
         [disabled]="tags.length >= maxTags"
         (click)="addTag()"
       >
-        <mat-icon>add</mat-icon> Add tag
+        <mat-icon>add</mat-icon>{{ 'form.fields.addTag' | translate }}
       </button>
     </fieldset>
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
-    <button mat-button type="button" mat-dialog-close [disabled]="saving()">Cancel</button>
+    <button mat-button type="button" mat-dialog-close [disabled]="saving()">
+      {{ 'common.cancel' | translate }}
+    </button>
     <button mat-flat-button type="submit" [disabled]="saving()">{{ submitLabel() }}</button>
   </mat-dialog-actions>
 </form>

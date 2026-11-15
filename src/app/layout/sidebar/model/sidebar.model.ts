@@ -1,13 +1,12 @@
 interface NavItem {
   path: string;
-  label: string;
+  labelKey: string;
   icon: string;
 }
 
 export const NAV_ITEMS: readonly NavItem[] = [
-  { path: '/dashboard', label: 'Dashboard', icon: 'dashboard' },
-  { path: '/calendar', label: 'Calendar', icon: 'calendar_today' },
-  { path: '/analytics', label: 'Analytics', icon: 'bar_chart' },
-  { path: '/team', label: 'Team', icon: 'group' },
-  { path: '/settings', label: 'Settings', icon: 'settings' },
+  { path: '/dashboard', labelKey: 'nav.dashboard', icon: 'dashboard' },
+  { path: '/analytics', labelKey: 'nav.analytics', icon: 'bar_chart' },
+  { path: '/team', labelKey: 'nav.team', icon: 'group' },
+  { path: '/settings', labelKey: 'nav.settings', icon: 'settings' },
 ];
